@@ -1,0 +1,104 @@
+---
+import type { Locale } from '@/lib/site';
+
+/**
+ * Round language-selector flags, drawn to each flag's official construction and
+ * centre-cropped into the circle (`slice`), the way circular flag sets do it.
+ *
+ * Turkey: 30×20 spec scaled ×40 — crescent circles at (10,10) r5 and
+ * (11.5,10) r4, star centred at (14.75,10) with outer radius 2.5.
+ * United Kingdom: the canonical 60×30 Union Jack with the counterchanged
+ * saltire clipped per quarter.
+ * Saudi Arabia: green field, the shahada set in the viewer's Arabic font, and
+ * the sword beneath it. At 22px the inscription reads as a calligraphic band
+ * rather than as legible words — it is the real text, not an invented shape.
+ */
+interface Props {
+  locale: Locale;
+  size?: number;
+}
+
+const { locale, size = 22 } = Astro.props;
+const box = 'block flex-none overflow-hidden rounded-full ring-1 ring-black/10';
+const style = `width:${size}px;height:${size}px`;
+
+const star =
+  '490.0,400.0 559.1,377.5 559.1,304.9 601.8,363.7 670.9,341.2 628.2,400.0 ' +
+  '670.9,458.8 601.8,436.3 559.1,495.1 559.1,422.5';
+
+const SHAHADA = 'لا إله إلا الله محمد رسول الله';
+---
+
+{
+  locale === 'tr' && (
+    <span class={box} style={style} aria-hidden="true">
+      {/*
+        The crescent and star sit hoist-side on the real flag (spanning
+        x 200–671, centred on ~435). The square viewBox is offset to that
+        centre so the emblem lands in the middle of the circle instead of
+        being pushed left by a symmetric crop.
+      */}
+      <svg viewBox="35 0 800 800" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect x="0" y="0" width="1200" height="800" fill="#E30A17" />
+        <circle cx="400" cy="400" r="200" fill="#fff" />
+        <circle cx="460" cy="400" r="160" fill="#E30A17" />
+        <polygon points={star} fill="#fff" />
+      </svg>
+    </span>
+  )
+}
+
+{
+  locale === 'en' && (
+    <span class={box} style={style} aria-hidden="true">
+      <svg viewBox="0 0 60 30" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <clipPath id="uk-saltire">
+          <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+        </clipPath>
+        <rect width="60" height="30" fill="#012169" />
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+        <path
+          d="M0,0 L60,30 M60,0 L0,30"
+          clip-path="url(#uk-saltire)"
+          stroke="#C8102E"
+          stroke-width="4"
+        />
+        <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+      </svg>
+    </span>
+  )
+}
+
+{
+  locale === 'ar' && (
+    <span class={box} style={style} aria-hidden="true">
+      <svg viewBox="0 0 900 600" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="900" height="600" fill="#006C35" />
+
+        <text
+          x="450"
+          y="300"
+          fill="#fff"
+          font-size="150"
+          font-family="'Segoe UI', 'Noto Naskh Arabic', 'Arabic Typesetting', serif"
+          text-anchor="middle"
+          direction="rtl"
+          textLength="560"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          {SHAHADA}
+        </text>
+
+        {/* Sword: tapered blade pointing hoist-side, guard, grip and pommel. */}
+        <g fill="#fff">
+          <path d="M165 430 L560 405 L560 455 Z" />
+          <rect x="556" y="398" width="18" height="64" rx="6" />
+          <rect x="586" y="378" width="16" height="104" rx="8" />
+          <rect x="608" y="416" width="96" height="28" rx="14" />
+          <circle cx="722" cy="430" r="22" />
+        </g>
+      </svg>
+    </span>
+  )
+}

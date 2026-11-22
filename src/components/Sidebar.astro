@@ -1,0 +1,72 @@
+---
+import Icon from './Icon.astro';
+import { CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+
+/**
+ * Sticky detail-page sidebar: a list of siblings (active one filled red) and
+ * the dark "any questions?" card.
+ */
+interface Props {
+  locale: Locale;
+  title: string;
+  items: { label: string; href: string; active?: boolean }[];
+  questionTitle?: string;
+  questionBody?: string;
+}
+
+const {
+  locale,
+  title,
+  items,
+  questionTitle = 'Sorunuz mu var?',
+  questionBody = 'Tetkikiniz, hazırlık ve randevu hakkında çağrı merkezimiz yardımcı olur.',
+} = Astro.props;
+
+const t = useTranslations(locale);
+---
+
+<aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+  <nav
+    aria-label={title}
+    class="overflow-hidden rounded-[16px] border border-line bg-white shadow-[var(--shadow-card)]"
+  >
+    <h2 class="bg-ink px-5 py-4 text-[15px] font-bold text-white">{title}</h2>
+    <ul class="max-h-[480px] divide-y divide-line-soft overflow-y-auto">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              href={localePath(locale, item.href)}
+              aria-current={item.active ? 'page' : undefined}
+              class:list={[
+                'flex items-center justify-between gap-3 px-5 py-3 text-[14px] transition-colors',
+                item.active
+                  ? 'bg-brand font-bold text-white hover:text-white'
+                  : 'text-body hover:bg-surface hover:text-brand',
+              ]}
+            >
+              <span>{item.label}</span>
+              <Icon name="chevronRight" size={14} class="shrink-0 opacity-60 rtl:-scale-x-100" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
+    <span class="text-[17px] font-bold">{questionTitle}</span>
+    <p class="text-[13.5px] leading-[1.6] text-white/75">{questionBody}</p>
+    <a href={CONTACT.phoneHref} class="flex items-center gap-2.5 text-[17px] font-bold text-white hover:text-white" dir="ltr">
+      <Icon name="phone" size={17} />
+      {CONTACT.phone}
+    </a>
+    <a
+      href={localePath(locale, '/iletisim/#randevu')}
+      class="mt-1 rounded-[10px] bg-brand px-5 py-3 text-center text-[13.5px] font-bold text-white transition-colors hover:bg-brand-light hover:text-white"
+    >
+      {t('cta.appointment')}
+    </a>
+  </div>
+</aside>

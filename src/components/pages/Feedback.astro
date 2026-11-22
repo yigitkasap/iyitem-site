@@ -1,0 +1,151 @@
+---
+import PageHero from '../PageHero.astro';
+import ContactForm from '../ContactForm.astro';
+import Steps from '../Steps.astro';
+import { CONTACT, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { FEEDBACK_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(FEEDBACK_PAGE, locale);
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  tone="plain"
+  crumbs={[{ label: t('nav.suggestions') }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_320px]">
+    <div class="flex flex-col gap-5">
+      <!-- Kind + satisfaction selectors feed hidden inputs on the shared form. -->
+      <div class="flex flex-col gap-5 rounded-[18px] border border-line bg-white p-6 sm:p-8">
+        <div class="flex flex-col gap-2.5">
+          <span class="field-label">Geri bildirim türü</span>
+          <div class="flex flex-wrap gap-2" data-kind-group>
+            {
+              copy.kinds.map((k, i) => (
+                <button
+                  type="button"
+                  data-kind={k}
+                  aria-pressed={i === 0 ? 'true' : 'false'}
+                  class:list={[
+                    'cursor-pointer rounded-full border px-4 py-2 text-[13.5px] font-bold transition-colors',
+                    i === 0
+                      ? 'border-ink bg-ink text-white'
+                      : 'border-[#e0ddd8] bg-white text-ink hover:border-ink',
+                  ]}
+                >
+                  {k}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <span class="field-label">Memnuniyetiniz</span>
+          <div class="flex flex-wrap gap-2" data-score-group>
+            {
+              [1, 2, 3, 4, 5].map((n) => (
+                <button
+                  type="button"
+                  data-score={n}
+                  aria-pressed="false"
+                  aria-label={`${n} / 5`}
+                  class="h-[46px] w-[46px] cursor-pointer rounded-[10px] border border-[#e0ddd8] bg-white text-[15px] font-bold text-ink transition-colors hover:border-ink"
+                >
+                  {n}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <label class="field-label">
+          İlgili birim
+          <select name="unit" form="feedback-form" class="field">
+            {copy.units.map((u) => <option>{u}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <ContactForm locale={locale} variant="suggestion" id="feedback-form" />
+    </div>
+
+    <aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+      <div class="flex flex-col gap-4 rounded-[16px] border border-line bg-white p-6">
+        <span class="mono-meta text-muted">{copy.stepsTitle}</span>
+        {
+          copy.steps.map((s) => (
+            <div class="flex gap-3 border-b border-line-soft pb-3 last:border-0 last:pb-0">
+              <span class="mono-label h-fit rounded-full border border-[#f3cdcb] px-2 py-0.5 text-brand">
+                {s.no}
+              </span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[14.5px] font-bold">{s.title}</span>
+                <span class="text-[13px] leading-[1.55] text-secondary">{s.text}</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="flex flex-col gap-2.5 rounded-[16px] bg-ink p-6 text-white">
+        <span class="text-[17px] font-bold">{copy.urgentTitle}</span>
+        <p class="text-[13.5px] leading-[1.6] text-white/75">{copy.urgentBody}</p>
+        <a href={CONTACT.phoneHref} class="text-[17px] font-bold text-white hover:text-white" dir="ltr">
+          {CONTACT.phone}
+        </a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  // Chip groups write their value into a hidden field on the shared form.
+  const form = document.getElementById('feedback-form') as HTMLFormElement | null;
+
+  const wire = (selector: string, attr: string, field: string) => {
+    const group = document.querySelector<HTMLElement>(selector);
+    if (!group || !form) return;
+
+    let input = form.querySelector<HTMLInputElement>(`input[name="${field}"]`);
+    if (!input) {
+      input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = field;
+      form.appendChild(input);
+    }
+
+    const buttons = Array.from(group.querySelectorAll<HTMLButtonElement>(`[data-${attr}]`));
+    const set = (btn: HTMLButtonElement) => {
+      buttons.forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-pressed', String(on));
+        b.classList.toggle('bg-ink', on);
+        b.classList.toggle('border-ink', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-white', !on);
+        b.classList.toggle('text-ink', !on);
+        b.classList.toggle('border-[#e0ddd8]', !on);
+      });
+      input!.value = btn.dataset[attr] ?? '';
+    };
+
+    buttons.forEach((b) => b.addEventListener('click', () => set(b)));
+    const initial = buttons.find((b) => b.getAttribute('aria-pressed') === 'true');
+    if (initial) input.value = initial.dataset[attr] ?? '';
+  };
+
+  wire('[data-kind-group]', 'kind', 'kind');
+  wire('[data-score-group]', 'score', 'score');
+</script>

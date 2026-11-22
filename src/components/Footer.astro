@@ -1,0 +1,147 @@
+---
+import Icon from './Icon.astro';
+import {
+  SITE,
+  CONTACT,
+  SOCIAL,
+  FOOTER_CORPORATE,
+  FOOTER_PATIENT,
+  localePath,
+  type Locale,
+} from '@/lib/site';
+import { useTranslations, type UIKey } from '@/i18n/ui';
+import { byLocale, splitId } from '@/lib/content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+
+const services = (await byLocale('departments', locale)).slice(0, 4);
+
+const contactRows = [
+  { label: t('label.address'), value: `${CONTACT.addressLine}\n${CONTACT.addressCity}` },
+  { label: t('label.phone'), value: CONTACT.phone, href: CONTACT.phoneHref, bold: true },
+  { label: t('label.whatsapp'), value: CONTACT.whatsapp, href: CONTACT.whatsappHref, bold: true, ext: true },
+  { label: t('label.email'), value: CONTACT.email, href: `mailto:${CONTACT.email}`, bold: true },
+  { label: t('label.hours'), value: CONTACT.hours },
+];
+
+/** Icons in a fixed order, but only for accounts that exist. */
+const socials = (['facebook', 'instagram', 'twitter', 'youtube'] as const)
+  .map((key) => ({ key, href: SOCIAL[key] }))
+  .filter((s): s is { key: typeof s.key; href: string } => Boolean(s.href));
+
+const columnLink = 'text-sm text-white/90 transition-colors hover:text-white';
+---
+
+<footer class="bg-brand pb-[100px] pt-14 text-white [@media(min-width:900px)]:pb-10">
+  <div class="shell grid gap-9 [@media(min-width:640px)]:[grid-template-columns:repeat(auto-fit,minmax(180px,1fr))] [@media(min-width:900px)]:[grid-template-columns:minmax(240px,1.3fr)_repeat(auto-fit,minmax(150px,1fr))]">
+    <!-- Brand + contact -->
+    <div class="flex flex-col gap-4">
+      <img
+        src={SITE.logoWhite}
+        alt={SITE.name}
+        width="188"
+        height="28"
+        class="h-7 w-auto self-start"
+      />
+
+      <div class="flex flex-col gap-[11px] text-sm leading-normal">
+        {
+          contactRows.map((row) => (
+            <span class="flex flex-col">
+              <span class="mono-meta text-white/70">{row.label}</span>
+              {row.href ? (
+                <a
+                  href={row.href}
+                  target={row.ext ? '_blank' : undefined}
+                  rel={row.ext ? 'noopener noreferrer' : undefined}
+                  class:list={['text-white hover:text-white', row.bold && 'font-bold']}
+                >
+                  {row.value}
+                </a>
+              ) : (
+                <span class="whitespace-pre-line text-white">{row.value}</span>
+              )}
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="flex gap-2.5 pt-0.5">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              aria-label={s.key}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-white/45 text-white transition-colors hover:bg-white hover:text-brand"
+            >
+              <Icon name={s.key} size={18} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Corporate -->
+    <nav class="flex flex-col gap-[9px]" aria-labelledby="f-corp">
+      <span id="f-corp" class="text-[14.5px] font-bold">{t('label.corporate')}</span>
+      {
+        FOOTER_CORPORATE.map((item) => (
+          <a href={localePath(locale, item.href)} class={columnLink}>
+            {t(`nav.${item.key}` as UIKey)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Services -->
+    <nav class="flex flex-col gap-[9px]" aria-labelledby="f-svc">
+      <span id="f-svc" class="text-[14.5px] font-bold">{t('label.services')}</span>
+      {
+        services.map((s) => (
+          <a href={localePath(locale, `/hizmetlerimiz/${splitId(s.id).slug}/`)} class={columnLink}>
+            {s.data.title}
+          </a>
+        ))
+      }
+      <a href={localePath(locale, '/hizmetlerimiz/')} class={columnLink}>{t('cta.allServices')}</a>
+    </nav>
+
+    <!-- Patient -->
+    <nav class="flex flex-col gap-[9px]" aria-labelledby="f-pat">
+      <span id="f-pat" class="text-[14.5px] font-bold">{t('label.patient')}</span>
+      {
+        FOOTER_PATIENT.map((item) => (
+          <a href={localePath(locale, item.href)} class={columnLink}>
+            {t(`nav.${item.key}` as UIKey)}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div
+    class="shell mt-8 flex flex-wrap justify-between gap-2.5 border-t border-white/30 pb-0 pt-[18px] text-[13px] text-white/85"
+  >
+    <span>© {year} {SITE.legalName} · {t('misc.copyright')}</span>
+    <span class="flex items-center gap-1.5">
+      {t('misc.developedBy')}
+      <a
+        href="https://baglofy.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-extrabold tracking-[-0.01em] text-white hover:opacity-85"
+      >
+        <span class="text-white">baglo</span><span class="text-baglofy">fy</span>
+      </a>
+    </span>
+    <span>{CONTACT.addressShort}</span>
+  </div>
+</footer>

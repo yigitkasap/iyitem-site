@@ -1,0 +1,84 @@
+---
+import PageHero from '../PageHero.astro';
+import Accordion from '../Accordion.astro';
+import ContactForm from '../ContactForm.astro';
+import Sidebar from '../Sidebar.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitFaq, isStub, splitId } from '@/lib/content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'departments'>;
+}
+
+const { locale, entry } = Astro.props;
+const t = useTranslations(locale);
+const slug = splitId(entry.id).slug;
+const { body, faq } = splitFaq(entry.body);
+const stub = isStub(body, entry.data.gallery);
+
+const siblings = await byLocale('departments', locale);
+---
+
+<PageHero
+  locale={locale}
+  title={entry.data.title}
+  lead={entry.data.summary || entry.data.lead}
+  image={entry.data.cover}
+  eyebrow={entry.data.category}
+  crumbs={[{ label: t('nav.services'), href: '/hizmetlerimiz/' }, { label: entry.data.title }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_320px]">
+    <div class="flex flex-col gap-8">
+      {entry.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+      <div class="rounded-[18px] border border-line bg-white p-6 sm:p-9">
+        {
+          stub ? (
+            <p class="text-[15px] text-secondary">{t('misc.contentSoon')}</p>
+          ) : (
+            <div class="prose-iyitem" set:html={body} />
+          )
+        }
+      </div>
+
+      {
+        faq.length > 0 && (
+          <div class="flex flex-col gap-5">
+            <h2 class="h3">{t('label.faqTitle')}</h2>
+            <Accordion items={faq} name={`faq-${slug}`} />
+          </div>
+        )
+      }
+
+      {
+        entry.data.appointmentForm && (
+          <div class="flex flex-col gap-5">
+            <h2 class="h3">{t('cta.appointment')}</h2>
+            <ContactForm
+              locale={locale}
+              variant="appointment"
+              id={`svc-${slug}`}
+              scan={entry.data.title}
+            />
+          </div>
+        )
+      }
+    </div>
+
+    <Sidebar
+      locale={locale}
+      title={t('nav.services')}
+      items={siblings.map((s) => ({
+        label: s.data.title,
+        href: `/hizmetlerimiz/${splitId(s.id).slug}/`,
+        active: splitId(s.id).slug === slug,
+      }))}
+    />
+  </div>
+</section>

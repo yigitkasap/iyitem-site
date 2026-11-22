@@ -1,0 +1,231 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Home from '@/components/pages/Home.astro';
+import Services from '@/components/pages/Services.astro';
+import ServiceDetail from '@/components/pages/ServiceDetail.astro';
+import Devices from '@/components/pages/Devices.astro';
+import DeviceDetail from '@/components/pages/DeviceDetail.astro';
+import Doctors from '@/components/pages/Doctors.astro';
+import DoctorDetail from '@/components/pages/DoctorDetail.astro';
+import Blog from '@/components/pages/Blog.astro';
+import BlogPost from '@/components/pages/BlogPost.astro';
+import About from '@/components/pages/About.astro';
+import OnlineReport from '@/components/pages/OnlineReport.astro';
+import Gallery from '@/components/pages/Gallery.astro';
+import Contact from '@/components/pages/Contact.astro';
+import Faq from '@/components/pages/Faq.astro';
+import Rights from '@/components/pages/Rights.astro';
+import Directions from '@/components/pages/Directions.astro';
+import Feedback from '@/components/pages/Feedback.astro';
+import Checkup from '@/components/pages/Checkup.astro';
+import Tesla from '@/components/pages/Tesla.astro';
+import Search from '@/components/pages/Search.astro';
+
+import { LOCALES, SITE, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { getCollection } from 'astro:content';
+import { splitId, byLocale, splitFaq } from '@/lib/content';
+import { LISTINGS, STANDALONE, type ListingKey, type CollectionKey, type StandaloneKind } from '@/lib/routes';
+import { HOME } from '@/i18n/copy';
+import { SERVICES_PAGE, ABOUT_PAGE, DEVICES_PAGE, DOCTORS_PAGE, REPORT_PAGE, GALLERY_PAGE, CONTACT_PAGE, DIRECTIONS_PAGE, CHECKUP_PAGE, TESLA_PAGE, FEEDBACK_PAGE, RIGHTS_PAGE, pick } from '@/i18n/copy-pages';
+
+/**
+ * Every route for every locale is generated here: Turkish at the root, the
+ * other locales prefixed, matching how the old multisite was served.
+ *
+ * Astro hoists `getStaticPaths` above the rest of this frontmatter, so it may
+ * only use imported bindings — never consts declared below it.
+ */
+
+type Kind = 'home' | 'listing' | 'detail' | StandaloneKind;
+
+export async function getStaticPaths() {
+  const pool = {
+    departments: await getCollection('departments'),
+    devices: await getCollection('devices'),
+    doctors: await getCollection('doctors'),
+    blog: await getCollection('blog'),
+  };
+
+  /** Turkish defines which items exist; a locale may add one of its own. */
+  const slugsFor = (collection: CollectionKey, locale: Locale) => {
+    const all = pool[collection];
+    const slugs = new Set(
+      all.filter((e) => splitId(e.id).locale === 'tr').map((e) => splitId(e.id).slug)
+    );
+    for (const e of all) {
+      if (splitId(e.id).locale === locale) slugs.add(splitId(e.id).slug);
+    }
+    return [...slugs];
+  };
+
+  const routes: { params: { path: string | undefined }; props: Record<string, unknown> }[] = [];
+
+  for (const locale of LOCALES) {
+    const prefix = locale === 'tr' ? '' : `${locale}/`;
+    const at = (p: string) => prefix + p || undefined;
+
+    routes.push({ params: { path: at('') }, props: { locale, kind: 'home' } });
+
+    for (const [base, cfg] of Object.entries(LISTINGS)) {
+      routes.push({
+        params: { path: at(base) },
+        props: { locale, kind: 'listing', base, collection: cfg.collection },
+      });
+      for (const slug of slugsFor(cfg.collection, locale)) {
+        routes.push({
+          params: { path: at(`${base}/${slug}`) },
+          props: { locale, kind: 'detail', base, collection: cfg.collection, slug },
+        });
+      }
+    }
+
+    for (const page of STANDALONE) {
+      routes.push({ params: { path: at(page.path) }, props: { locale, kind: page.kind } });
+    }
+  }
+
+  return routes;
+}
+
+const { locale, kind, base, collection, slug } = Astro.props as {
+  locale: Locale;
+  kind: Kind;
+  base?: ListingKey;
+  collection?: CollectionKey;
+  slug?: string;
+};
+
+const t = useTranslations(locale);
+
+/** One entry for this locale, falling back to Turkish. */
+async function resolve(coll: CollectionKey, s: string) {
+  const all = await getCollection(coll as any);
+  return all.find((e: any) => e.id === `${locale}/${s}`) ?? all.find((e: any) => e.id === `tr/${s}`);
+}
+
+let title = '';
+let description = '';
+let path = '/';
+let image: string | undefined;
+let entry: any;
+const schemas: unknown[] = [];
+
+const crumb = (label: string, href?: string) => ({
+  '@type': 'ListItem',
+  name: label,
+  item: href ? new URL(localePath(locale, href), SITE.url).href : undefined,
+});
+
+if (kind === 'home') {
+  title = t('nav.home');
+  description = pick(HOME, locale).doctors.body;
+} else if (kind === 'listing' && base && collection) {
+  title = t(LISTINGS[base].navKey);
+  path = `/${base}/`;
+  const items = await byLocale(collection, locale);
+  description = items.slice(0, 6).map((e) => e.data.title).join(' · ');
+  image = items[0]?.data.cover || undefined;
+} else if (kind === 'detail' && base && collection && slug) {
+  entry = await resolve(collection, slug);
+  title = entry?.data.title ?? '';
+  description = entry?.data.summary || entry?.data.lead || '';
+  path = `/${base}/${slug}/`;
+  image = entry?.data.cover || undefined;
+
+  const { faq } = splitFaq(entry?.body);
+  if (faq.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').trim() },
+      })),
+    });
+  }
+} else {
+  const page = STANDALONE.find((p) => p.kind === kind);
+  path = `/${page?.path ?? ''}/`;
+
+  const copyByKind: Partial<Record<StandaloneKind, { title: string; lead?: string }>> = {
+    about: pick(ABOUT_PAGE, locale),
+    report: pick(REPORT_PAGE, locale),
+    gallery: pick(GALLERY_PAGE, locale),
+    contact: pick(CONTACT_PAGE, locale),
+    directions: pick(DIRECTIONS_PAGE, locale),
+    feedback: pick(FEEDBACK_PAGE, locale),
+    checkup: pick(CHECKUP_PAGE, locale),
+    tesla: pick(TESLA_PAGE, locale),
+    rights: pick(RIGHTS_PAGE, locale),
+  };
+
+  const c = copyByKind[kind as StandaloneKind];
+  title = c?.title ?? (kind === 'faq' ? t('nav.faq') : t('nav.search'));
+  description = c?.lead ?? '';
+
+  if (kind === 'faq') {
+    const faqPage = await byLocale('pages', locale).then((all) =>
+      all.find((p) => splitId(p.id).slug === 'sikca-sorulan-sorular')
+    );
+    const { faq } = splitFaq(faqPage?.body);
+    if (faq.length > 0) {
+      schemas.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').trim() },
+        })),
+      });
+    }
+  }
+}
+
+if (path !== '/') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [crumb(t('nav.home'), '/'), crumb(title)].map((c, i) => ({
+      ...c,
+      position: i + 1,
+    })),
+  });
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  path={path}
+  image={image}
+  schemas={schemas}
+  noindex={kind === 'search'}
+>
+  {kind === 'home' && <Home locale={locale} />}
+
+  {kind === 'listing' && base === 'hizmetlerimiz' && <Services locale={locale} />}
+  {kind === 'listing' && base === 'cihazlarimiz' && <Devices locale={locale} />}
+  {kind === 'listing' && base === 'doktorlarimiz' && <Doctors locale={locale} />}
+  {kind === 'listing' && base === 'blog' && <Blog locale={locale} />}
+
+  {kind === 'detail' && base === 'hizmetlerimiz' && entry && <ServiceDetail locale={locale} entry={entry} />}
+  {kind === 'detail' && base === 'cihazlarimiz' && entry && <DeviceDetail locale={locale} entry={entry} />}
+  {kind === 'detail' && base === 'doktorlarimiz' && entry && <DoctorDetail locale={locale} entry={entry} />}
+  {kind === 'detail' && base === 'blog' && entry && <BlogPost locale={locale} entry={entry} />}
+
+  {kind === 'about' && <About locale={locale} />}
+  {kind === 'report' && <OnlineReport locale={locale} />}
+  {kind === 'gallery' && <Gallery locale={locale} />}
+  {kind === 'contact' && <Contact locale={locale} />}
+  {kind === 'faq' && <Faq locale={locale} />}
+  {kind === 'rights' && <Rights locale={locale} />}
+  {kind === 'directions' && <Directions locale={locale} />}
+  {kind === 'feedback' && <Feedback locale={locale} />}
+  {kind === 'checkup' && <Checkup locale={locale} />}
+  {kind === 'tesla' && <Tesla locale={locale} />}
+  {kind === 'search' && <Search locale={locale} />}
+</BaseLayout>

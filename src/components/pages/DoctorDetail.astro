@@ -1,0 +1,71 @@
+---
+import PageHero from '../PageHero.astro';
+import Sidebar from '../Sidebar.astro';
+import ContactForm from '../ContactForm.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitFaq, isStub, splitId } from '@/lib/content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'doctors'>;
+}
+
+const { locale, entry } = Astro.props;
+const t = useTranslations(locale);
+const slug = splitId(entry.id).slug;
+const { body } = splitFaq(entry.body);
+const stub = isStub(body);
+const doctors = await byLocale('doctors', locale);
+const specialty = entry.data.specialty || t('label.specialty');
+---
+
+<PageHero
+  locale={locale}
+  title={entry.data.title}
+  lead={specialty}
+  crumbs={[{ label: t('nav.doctors'), href: '/doktorlarimiz/' }, { label: entry.data.title }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:320px_minmax(0,1fr)]">
+    <div class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+      <img
+        src={entry.data.cover}
+        alt={entry.data.title}
+        width="876"
+        height="1000"
+        loading="eager"
+        decoding="async"
+        class="w-full rounded-[18px] border border-line object-cover object-top [aspect-ratio:1/1]"
+      />
+      <ContactForm locale={locale} variant="appointment" id={`dr-${slug}`} class="!p-6" />
+    </div>
+
+    <div class="flex flex-col gap-8">
+      {entry.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+      <div class="rounded-[18px] border border-line bg-white p-6 sm:p-9">
+        {
+          stub ? (
+            <p class="text-[15px] text-secondary">{t('misc.contentSoon')}</p>
+          ) : (
+            <div class="prose-iyitem" set:html={body} />
+          )
+        }
+      </div>
+
+      <Sidebar
+        locale={locale}
+        title={t('nav.doctors')}
+        items={doctors.map((d) => ({
+          label: d.data.title,
+          href: `/doktorlarimiz/${splitId(d.id).slug}/`,
+          active: splitId(d.id).slug === slug,
+        }))}
+      />
+    </div>
+  </div>
+</section>

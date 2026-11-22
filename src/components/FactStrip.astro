@@ -1,0 +1,25 @@
+---
+/** Four-cell figure strip used on About, Devices, Check-up and 3 Tesla MR. */
+interface Props {
+  facts: { value: string; label: string }[];
+  tone?: 'surface' | 'white';
+  class?: string;
+}
+
+const { facts, tone = 'surface', class: className = '' } = Astro.props;
+---
+
+<section class:list={[tone === 'surface' ? 'bg-surface' : 'bg-white', className]}>
+  <div class="shell grid gap-x-6 gap-y-8 py-12 [grid-template-columns:repeat(auto-fit,minmax(170px,1fr))]">
+    {
+      facts.map((f) => (
+        <div class="reveal flex flex-col gap-1.5">
+          <span class="text-[clamp(24px,2.4vw,32px)] font-extrabold leading-none text-brand">
+            {f.value}
+          </span>
+          <span class="text-[13.5px] leading-[1.5] text-secondary">{f.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>

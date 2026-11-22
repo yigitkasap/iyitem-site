@@ -1,0 +1,82 @@
+---
+import PageHero from '../PageHero.astro';
+import Sidebar from '../Sidebar.astro';
+import ContactForm from '../ContactForm.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitFaq, isStub, splitId } from '@/lib/content';
+import { DEVICES_PAGE, pick } from '@/i18n/copy-pages';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'devices'>;
+}
+
+const { locale, entry } = Astro.props;
+const t = useTranslations(locale);
+const slug = splitId(entry.id).slug;
+const { body } = splitFaq(entry.body);
+const stub = isStub(body);
+
+const devices = await byLocale('devices', locale);
+const specs = pick(DEVICES_PAGE, locale).specs[slug] ?? [];
+---
+
+<PageHero
+  locale={locale}
+  title={entry.data.title}
+  lead={entry.data.summary}
+  image={entry.data.cover}
+  eyebrow={entry.data.brand}
+  crumbs={[{ label: t('nav.devices'), href: '/cihazlarimiz/' }, { label: entry.data.title }]}
+/>
+
+{
+  specs.length > 0 && (
+    <section class="bg-surface">
+      <div class="shell grid gap-6 py-10 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
+        {specs.map((s, i) => (
+          <div class="flex flex-col gap-1.5">
+            <span class="mono-meta text-muted">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-[16px] font-bold">{s}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_320px]">
+    <div class="flex flex-col gap-8">
+      {entry.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+      <div class="rounded-[18px] border border-line bg-white p-6 sm:p-9">
+        {
+          stub ? (
+            <p class="text-[15px] text-secondary">{t('misc.contentSoon')}</p>
+          ) : (
+            <div class="prose-iyitem" set:html={body} />
+          )
+        }
+      </div>
+
+      <div class="flex flex-col gap-5">
+        <h2 class="h3">{t('cta.appointment')}</h2>
+        <ContactForm locale={locale} variant="appointment" id={`dev-${slug}`} />
+      </div>
+    </div>
+
+    <Sidebar
+      locale={locale}
+      title={t('nav.devices')}
+      items={devices.map((d) => ({
+        label: d.data.title,
+        href: `/cihazlarimiz/${splitId(d.id).slug}/`,
+        active: splitId(d.id).slug === slug,
+      }))}
+    />
+  </div>
+</section>

@@ -1,0 +1,121 @@
+---
+import PageHero from '../PageHero.astro';
+import Steps from '../Steps.astro';
+import Accordion from '../Accordion.astro';
+import Icon from '../Icon.astro';
+import { PORTALS, CONTACT, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { REPORT_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(REPORT_PAGE, locale);
+
+/** The host label under each button is derived from the URL, never hard-coded. */
+const hostOf = (url: string) => {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url;
+  }
+};
+
+const portals = copy.portals.map((p) => ({
+  ...p,
+  url: PORTALS[p.key],
+  host: hostOf(PORTALS[p.key]),
+  bg: p.key === 'patient' ? 'var(--color-brand)' : 'var(--color-ink)',
+  hover: p.key === 'patient' ? 'var(--color-brand-dark)' : 'var(--color-ink-dark)',
+}));
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  tone="plain"
+  crumbs={[{ label: t('nav.onlineReport') }]}
+/>
+
+<!-- Portal buttons -->
+<section class="shell grid gap-5 py-14 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+  {
+    portals.map((p) => (
+      <a
+        href={p.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group reveal lift flex flex-col items-center gap-3 rounded-[18px] p-10 text-center text-white hover:text-white"
+        style={`background:${p.bg}`}
+        data-hover={p.hover}
+        data-base={p.bg}
+      >
+        <span class="mono-meta text-white/70">{p.tag}</span>
+        <span class="text-[clamp(26px,3vw,34px)] font-extrabold leading-[1.15] text-white">
+          {p.title}
+        </span>
+        <span class="max-w-sm text-[14.5px] leading-[1.6] text-white/80">{p.desc}</span>
+        <span class="mt-2 inline-flex items-center gap-2 text-[15px] font-bold">
+          {p.cta}
+          <Icon name="arrowRight" size={17} class="transition-transform group-hover:translate-x-1 rtl:-scale-x-100" />
+        </span>
+        <span class="mono-meta text-white/60">
+          {t('label.openInNewTab')} · {p.host}
+        </span>
+      </a>
+    ))
+  }
+</section>
+
+<!-- Security warning -->
+<section class="shell pb-4">
+  <p
+    class="flex items-start gap-3 rounded-[14px] border border-warn-line bg-warn-bg px-5 py-4 text-[14px] leading-[1.6] text-warn-ink"
+    role="note"
+  >
+    <Icon name="shield" size={18} class="mt-0.5 shrink-0" />
+    <span>{copy.warning}</span>
+  </p>
+</section>
+
+<Steps title={copy.stepsTitle} items={copy.steps} />
+
+<!-- FAQ -->
+<section class="bg-surface py-16">
+  <div class="shell shell-narrow flex flex-col gap-6">
+    <h2 class="h2">{t('label.faqTitle')}</h2>
+    <Accordion items={copy.faq} name="report-faq" variant="flush" />
+  </div>
+</section>
+
+<!-- Support -->
+<section class="shell py-16">
+  <div class="flex flex-wrap items-center justify-between gap-6 rounded-[18px] bg-ink p-9 text-white">
+    <div class="flex max-w-xl flex-col gap-2">
+      <h2 class="text-[clamp(22px,2.4vw,28px)] font-extrabold text-white">{copy.supportTitle}</h2>
+      <p class="text-[15px] leading-[1.6] text-white/75">{copy.supportBody}</p>
+    </div>
+    <a
+      href={CONTACT.phoneHref}
+      class="rounded-[10px] bg-brand px-6 py-3.5 text-[15px] font-bold text-white transition-colors hover:bg-brand-light hover:text-white"
+    >
+      {CONTACT.phone}
+    </a>
+  </div>
+</section>
+
+<script>
+  // Hover darkening for the two portal cards (inline colours, so JS handles it).
+  document.querySelectorAll<HTMLElement>('[data-hover]').forEach((el) => {
+    const base = el.dataset.base ?? '';
+    const hover = el.dataset.hover ?? '';
+    el.addEventListener('mouseenter', () => (el.style.background = hover));
+    el.addEventListener('mouseleave', () => (el.style.background = base));
+    el.addEventListener('focus', () => (el.style.background = hover));
+    el.addEventListener('blur', () => (el.style.background = base));
+  });
+</script>

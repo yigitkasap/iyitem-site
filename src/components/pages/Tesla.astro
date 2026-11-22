@@ -1,0 +1,107 @@
+---
+import PageHero from '../PageHero.astro';
+import FactStrip from '../FactStrip.astro';
+import Steps from '../Steps.astro';
+import { CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { TESLA_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(TESLA_PAGE, locale);
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  image="/assets/dev-mr.webp"
+  crumbs={[{ label: copy.title }]}
+>
+  <div class="mt-7 flex flex-wrap gap-3">
+    <a
+      href={localePath(locale, '/iletisim/#randevu')}
+      class="rounded-[10px] bg-brand px-6 py-3.5 text-[14.5px] font-bold text-white transition-colors hover:bg-brand-light hover:text-white"
+    >
+      {t('cta.appointment')}
+    </a>
+    <a
+      href={localePath(locale, '/hizmetlerimiz/mr-manyetik-rezonans-goruntuleme/')}
+      class="rounded-[10px] border border-white/45 px-6 py-3.5 text-[14.5px] font-bold text-white transition-colors hover:bg-white/15 hover:text-white"
+    >
+      MR hizmet sayfası
+    </a>
+  </div>
+</PageHero>
+
+<FactStrip facts={copy.facts} />
+
+<!-- Why 3 Tesla -->
+<section class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+  <div class="flex min-w-0 flex-col gap-4">
+    <span class="mono-label text-brand">3 Tesla</span>
+    <h2 class="h2">{copy.whyTitle}</h2>
+    <p class="text-[16.5px] leading-[1.75] text-body">{copy.whyBody}</p>
+  </div>
+  <img
+    src="/assets/dev-mr.webp"
+    alt=""
+    width="900"
+    height="720"
+    loading="lazy"
+    decoding="async"
+    class="w-full min-w-0 rounded-[18px] border border-line object-cover shadow-[var(--shadow-photo)] [aspect-ratio:5/4]"
+  />
+</section>
+
+<!-- Advanced studies -->
+<section class="bg-surface py-16">
+  <div class="shell flex flex-col gap-7">
+    <h2 class="h2">{copy.advancedTitle}</h2>
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]">
+      {
+        copy.advanced.map((a) => (
+          <div class="reveal lift flex flex-col gap-2 rounded-[14px] border border-line bg-white p-5">
+            <span class="text-[16px] font-bold leading-[1.3]">{a.title}</span>
+            <p class="text-[13.5px] leading-[1.55] text-secondary">{a.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Comfort + flow -->
+<section class="shell grid gap-6 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+  <div class="flex flex-col gap-4 rounded-[18px] bg-ink p-8 text-white">
+    <span class="mono-label text-hero-tag">{copy.comfortTitle}</span>
+    <p class="text-[15.5px] leading-[1.7] text-white/80">{copy.comfortBody}</p>
+    <a
+      href={CONTACT.phoneHref}
+      class="mt-auto w-fit text-[19px] font-bold text-white hover:text-white"
+      dir="ltr"
+    >
+      {CONTACT.phone}
+    </a>
+  </div>
+
+  <div class="flex flex-col gap-4 rounded-[18px] border border-line bg-white p-8">
+    <span class="mono-label text-brand">{copy.flowTitle}</span>
+    <ol class="flex flex-col">
+      {
+        copy.flow.map((f) => (
+          <li class="flex gap-4 border-b border-line-soft py-4 last:border-0">
+            <span class="mono-label h-fit rounded-full border border-[#f3cdcb] px-2.5 py-1 text-brand">
+              {f.no}
+            </span>
+            <span class="text-[14.5px] leading-[1.6] text-body">{f.text}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

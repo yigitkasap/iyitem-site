@@ -1,0 +1,71 @@
+---
+import PageHero from '../PageHero.astro';
+import Accordion from '../Accordion.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { oneBySlug, splitFaq } from '@/lib/content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const page = await oneBySlug('pages', locale, 'sikca-sorulan-sorular');
+const { faq } = splitFaq(page?.body);
+
+const related = [
+  { label: t('nav.howToCome'), href: '/nasil-gelmelisiniz/' },
+  { label: t('nav.onlineReport'), href: '/online-hizmetler/online-rapor/' },
+  { label: t('nav.services'), href: '/hizmetlerimiz/' },
+  { label: t('nav.patientRights'), href: '/hasta-haklari/' },
+];
+---
+
+<PageHero
+  locale={locale}
+  title={page?.data.title ?? t('nav.faq')}
+  lead={`${faq.length} soru · MR, BT, hazırlık ve raporlama süreçleri`}
+  tone="plain"
+  crumbs={[{ label: t('nav.faq') }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_300px]">
+    <div class="flex flex-col gap-5">
+      {page?.data.draftTranslation && <TranslationNotice locale={locale} />}
+      <Accordion items={faq} name="sss" variant="flush" />
+    </div>
+
+    <aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+      <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
+        <span class="text-[17px] font-bold">Sorunuz burada yok mu?</span>
+        <p class="text-[13.5px] leading-[1.6] text-white/75">
+          Çağrı merkezimizi arayın; tetkikiniz ve hazırlık süreci hakkında yardımcı olalım.
+        </p>
+        <a
+          href={CONTACT.phoneHref}
+          class="text-[17px] font-bold text-white hover:text-white"
+          dir="ltr"
+        >
+          {CONTACT.phone}
+        </a>
+      </div>
+
+      <div class="flex flex-col gap-2.5 rounded-[16px] border border-line bg-white p-6">
+        <span class="mono-meta text-muted">{t('label.relatedPages')}</span>
+        {
+          related.map((r) => (
+            <a
+              href={localePath(locale, r.href)}
+              class="border-b border-line-soft pb-2.5 text-[14px] font-semibold text-ink last:border-0 last:pb-0 hover:text-brand"
+            >
+              {r.label}
+            </a>
+          ))
+        }
+      </div>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { CONTACT, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+
+/**
+ * Desktop-only floating actions: WhatsApp bottom-start, back-to-top bottom-end.
+ *
+ * Both are hidden below 900px, where the fixed MobileBar already offers call,
+ * WhatsApp and booking — two overlapping bars would fight for the same corner.
+ */
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<a
+  href={CONTACT.whatsappHref}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`WhatsApp ${CONTACT.whatsapp}`}
+  class="group fixed bottom-6 start-6 z-40 hidden items-center rounded-full bg-wa-bg p-3 text-white shadow-[0_10px_30px_rgba(30,169,82,.35)] transition-all duration-300 hover:gap-3 hover:pe-5 hover:bg-wa-ink hover:text-white [@media(min-width:900px)]:flex"
+>
+  {/* At rest the padding is equal on all four sides, so this is a true circle;
+      the extra end-padding and gap only appear once the label unfurls. */}
+  <span class="flex h-8 w-8 flex-none items-center justify-center">
+    <Icon name="whatsapp" size={26} />
+  </span>
+  <span
+    class="max-w-0 overflow-hidden whitespace-nowrap text-[14px] font-bold opacity-0 transition-all duration-300 group-hover:max-w-[220px] group-hover:opacity-100"
+  >
+    {t('label.whatsapp')} · {CONTACT.whatsapp}
+  </span>
+</a>
+
+<button
+  type="button"
+  id="to-top"
+  hidden
+  aria-label={t('cta.backToTop')}
+  class="fixed bottom-6 end-6 z-40 h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line-form bg-white text-ink shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:bg-brand hover:text-white [@media(min-width:900px)]:flex"
+>
+  <Icon name="arrowUp" size={20} />
+</button>
+
+<script>
+  const button = document.getElementById('to-top') as HTMLButtonElement | null;
+
+  if (button) {
+    // `hidden` also has to clear the flex display the class sets at ≥900px.
+    const show = (on: boolean) => {
+      button.hidden = !on;
+      button.style.display = on ? '' : 'none';
+    };
+
+    const onScroll = () => show(window.scrollY > 500);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    button.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+</script>

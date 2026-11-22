@@ -1,0 +1,141 @@
+---
+import PageHero from '../PageHero.astro';
+import { localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitId } from '@/lib/content';
+import { SERVICES_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(SERVICES_PAGE, locale);
+
+const departments = await byLocale('departments', locale);
+
+// Category chips are driven by the content so they cannot drift from the cards.
+const categories = [...new Set(departments.map((d) => d.data.category).filter(Boolean))];
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  image="/assets/hizmetler-hero.webp"
+  crumbs={[{ label: t('nav.services') }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell flex flex-col gap-7">
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center justify-between gap-3" data-filter-bar>
+      <div class="flex flex-wrap gap-2">
+        <button
+          type="button"
+          data-filter="*"
+          aria-pressed="true"
+          class="cursor-pointer rounded-full border border-ink bg-ink px-4 py-2 text-[13.5px] font-bold text-white transition-colors"
+        >
+          {t('label.all')}
+        </button>
+        {
+          categories.map((cat) => (
+            <button
+              type="button"
+              data-filter={cat}
+              aria-pressed="false"
+              class="cursor-pointer rounded-full border border-[#e0ddd8] bg-white px-4 py-2 text-[13.5px] font-bold text-ink transition-colors hover:border-ink"
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+      <span class="mono-meta text-muted" data-filter-count>
+        {departments.length} {copy.countLabel}
+      </span>
+    </div>
+
+    <!-- Cards -->
+    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
+      {
+        departments.map((s) => (
+          <a
+            href={localePath(locale, `/hizmetlerimiz/${splitId(s.id).slug}/`)}
+            data-cat={s.data.category}
+            class="group flex flex-col overflow-hidden rounded-[14px] border border-line bg-white text-ink lift reveal hover:text-ink hover:shadow-[var(--shadow-card)]"
+          >
+            <img
+              src={s.data.cover}
+              alt=""
+              width="600"
+              height="375"
+              loading="lazy"
+              decoding="async"
+              class="zoom block w-full object-cover [aspect-ratio:16/10]"
+            />
+            <span class="flex flex-1 flex-col gap-2 p-5">
+              <span class="mono-meta text-muted">{s.data.category}</span>
+              <span class="text-[16.5px] font-bold leading-[1.3]">{s.data.title}</span>
+              <span class="line-clamp-3 text-[13.5px] leading-[1.55] text-secondary">
+                {s.data.summary}
+              </span>
+              <span class="mt-auto pt-2 text-[13.5px] font-bold text-brand">
+                {t('cta.details')} →
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Why İyitem -->
+<section class="shell py-16">
+  <div class="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+    {
+      copy.reasons.map((r) => (
+        <div class="reveal lift flex flex-col gap-3 rounded-[16px] border border-line bg-white p-6">
+          <span class="mono-label text-brand">{r.no}</span>
+          <span class="text-[18px] font-bold">{r.title}</span>
+          <p class="text-[14.5px] leading-[1.6] text-secondary">{r.text}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-filter-bar]');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-cat]'));
+  const count = document.querySelector<HTMLElement>('[data-filter-count]');
+  const label = count?.textContent?.trim().split(/\s+/).slice(1).join(' ') ?? '';
+
+  bar?.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const want = btn.dataset.filter;
+
+      bar.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-pressed', String(on));
+        b.classList.toggle('bg-ink', on);
+        b.classList.toggle('border-ink', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-white', !on);
+        b.classList.toggle('text-ink', !on);
+        b.classList.toggle('border-[#e0ddd8]', !on);
+      });
+
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = want === '*' || card.dataset.cat === want;
+        card.hidden = !match;
+        if (match) shown += 1;
+      });
+      if (count) count.textContent = `${shown} ${label}`;
+    });
+  });
+</script>

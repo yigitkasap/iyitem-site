@@ -1,0 +1,90 @@
+---
+import PageHero from '../PageHero.astro';
+import Steps from '../Steps.astro';
+import { localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitId } from '@/lib/content';
+import { DOCTORS_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(DOCTORS_PAGE, locale);
+const doctors = await byLocale('doctors', locale);
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  image="/assets/about-3.webp"
+  crumbs={[{ label: t('nav.doctors') }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell flex flex-col gap-[18px]">
+    {
+      doctors.map((d) => {
+        const slug = splitId(d.id).slug;
+        return (
+          <article class="reveal grid overflow-hidden rounded-[18px] border border-line bg-white [@media(min-width:820px)]:[grid-template-columns:minmax(0,320px)_minmax(0,1fr)]">
+            <img
+              src={d.data.cover}
+              alt={d.data.title}
+              width="876"
+              height="1000"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover object-top [aspect-ratio:4/5] [@media(min-width:820px)]:[aspect-ratio:auto]"
+            />
+            <div class="flex flex-col gap-4 p-6 sm:p-8">
+              <div class="flex flex-col gap-1">
+                <h2 class="text-[clamp(20px,2vw,25px)] font-extrabold">{d.data.title}</h2>
+                <span class="text-[14.5px] text-secondary">
+                  {d.data.specialty || t('label.specialty')}
+                </span>
+              </div>
+
+              <p class="text-[15px] leading-[1.65] text-body">{copy.summary[slug]}</p>
+
+              <dl class="grid gap-4 border-t border-line-soft pt-4 [grid-template-columns:repeat(auto-fit,minmax(190px,1fr))]">
+                <div class="flex flex-col gap-1">
+                  <dt class="mono-meta text-muted">Eğitim</dt>
+                  <dd class="text-[13.5px] leading-[1.55] text-body">{d.data.education}</dd>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <dt class="mono-meta text-muted">İlgi alanları</dt>
+                  <dd class="text-[13.5px] leading-[1.55] text-body">{d.data.interests}</dd>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <dt class="mono-meta text-muted">İyitem'de</dt>
+                  <dd class="text-[13.5px] leading-[1.55] text-body">{copy.since[slug]}</dd>
+                </div>
+              </dl>
+
+              <div class="mt-auto flex flex-wrap gap-3 pt-2">
+                <a
+                  href={localePath(locale, `/doktorlarimiz/${slug}/`)}
+                  class="rounded-[10px] bg-ink px-5 py-3 text-[13.5px] font-bold text-white transition-colors hover:bg-ink-dark hover:text-white"
+                >
+                  {t('cta.viewCv')}
+                </a>
+                <a
+                  href={localePath(locale, '/iletisim/#randevu')}
+                  class="rounded-[10px] border border-line-input px-5 py-3 text-[13.5px] font-bold text-ink transition-colors hover:border-ink"
+                >
+                  {t('cta.appointment')}
+                </a>
+              </div>
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+</section>
+
+<Steps title={copy.stepsTitle} items={copy.steps} />

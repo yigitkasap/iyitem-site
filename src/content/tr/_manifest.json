@@ -1,0 +1,452 @@
+[
+  {
+    "type": "blog",
+    "slug": "3-tesla-mr-ile-15-tesla-mr-arasindaki-fark-nedir",
+    "title": "3 tesla MR ile 1,5 tesla MR arasındaki fark nedir?",
+    "wpId": "27",
+    "chars": 3244,
+    "images": [
+      "/media/2020/09/0541.png"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "anasayfa",
+    "title": "Anasayfa",
+    "wpId": "36",
+    "chars": 2755,
+    "images": [
+      "/media/2025/10/557-1.webp",
+      "/media/2022/09/BOY-GRAFISI-1.png",
+      "/media/2022/09/DEFEKOGRAFI-1.png",
+      "/media/2022/09/HISTEROSALPINGOGRAFI-HSG-1.png",
+      "/media/2022/09/SKOLYOZ-GRAFISI-1.png",
+      "/media/2022/09/DOPPLER-ULTRASONOGRAFI-1.png",
+      "/media/2022/09/DIJITAL-RONTGEN-1.png",
+      "/media/2025/10/0197-1.webp",
+      "/media/2022/09/0481-1.png",
+      "/media/2022/09/0360-1.png",
+      "/media/2022/09/youtube-f167-1-1.png",
+      "/media/2022/09/Doktorum-benden-MR-Manyetik-Rezonans-goruntuleme-istediginde-1-1.png",
+      "/media/2022/09/Fazla-kilolu-kisiler-MR-Manyetik-Rezonans-goruntuleme-yaptira-1.png"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "galeri",
+    "title": "Galeri",
+    "wpId": "56",
+    "chars": 217,
+    "images": [
+      "/media/2020/10/Layer-45.png",
+      "/media/2020/10/0532.png",
+      "/media/2022/09/Layer-32.png",
+      "/media/2020/10/0186.png",
+      "/media/2022/09/0128.png",
+      "/media/2022/09/0203.png"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "doktorlarimiz",
+    "title": "Doktorlarımız",
+    "wpId": "64",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "blog",
+    "title": "Blog",
+    "wpId": "68",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "iletisim",
+    "title": "İletişim",
+    "wpId": "72",
+    "chars": 291,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "departments",
+    "slug": "mr-manyetik-rezonans-goruntuleme",
+    "title": "MR (Manyetik Rezonans Görüntüleme)",
+    "wpId": "95",
+    "chars": 1782,
+    "images": [
+      "/media/2020/10/0318.png"
+    ],
+    "faq": 8
+  },
+  {
+    "type": "departments",
+    "slug": "boy-grafisi-ortorontgenogram",
+    "title": "Boy Grafisi (Ortoröntgenogram)",
+    "wpId": "97",
+    "chars": 1184,
+    "images": [
+      "/media/2020/10/Layer-45.png",
+      "/media/2020/10/Layer-46.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "defekografi",
+    "title": "Defekografi",
+    "wpId": "98",
+    "chars": 1970,
+    "images": [
+      "/media/2020/10/9976.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "skolyoz-grafisi",
+    "title": "Skolyoz Grafisi",
+    "wpId": "99",
+    "chars": 2754,
+    "images": [
+      "/media/2020/10/9968.png",
+      "/media/2020/10/9931.png",
+      "/media/2020/10/Layer-41-1.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "bt-bilgisayarli-tomografi",
+    "title": "BT (Bilgisayarlı Tomografi)",
+    "wpId": "100",
+    "chars": 1794,
+    "images": [
+      "/media/2020/01/bt-yeni-foto-01.png",
+      "/media/2020/10/0186.png",
+      "/media/2020/10/0189.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "doctors",
+    "slug": "ergun-deniz",
+    "title": "Ergün Deniz",
+    "wpId": "541",
+    "chars": 665,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "doctors",
+    "slug": "bedri-carsancakli",
+    "title": "Bedri Çarsancaklı",
+    "wpId": "544",
+    "chars": 733,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "3-boyutlu-dental-tomografi-kavo",
+    "title": "Kavo OP 300 Orthopantomograph 3 Boyutlu Dental Tomografi ve Dijital Panoramik Röntgen Cihazı",
+    "wpId": "683",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "dijital-rontgen-gmm",
+    "title": "GMM Dijital Röntgen Sistemi",
+    "wpId": "685",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "dijital-mammografi-fuji-amulet",
+    "title": "Fuji Amulet Dijital Mamografi Cihazı",
+    "wpId": "686",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "kemik-dansitometri-dms",
+    "title": "DMS Kemik Dansitometri Cihazı",
+    "wpId": "687",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "hizmetlerimiz",
+    "title": "Hizmetlerimiz",
+    "wpId": "1564",
+    "chars": 209,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "departments",
+    "slug": "dijital-rontgen",
+    "title": "Dijital Röntgen",
+    "wpId": "1717",
+    "chars": 3566,
+    "images": [
+      "/media/2020/10/0010.png",
+      "/media/2020/10/0038.png",
+      "/media/2020/10/0004.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "devices",
+    "slug": "i800-doppler-ultrasonografi-canon",
+    "title": "Canon I 800 Renkli Doppler Ultrasonografi Cihazı",
+    "wpId": "4356",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "multislice-bt-ge-elite",
+    "title": "General Electric Elite Multisilice Bilgisayarlı Tomografi Cihazı",
+    "wpId": "4380",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "devices",
+    "slug": "mr-3-tesla-siemens-optima-360",
+    "title": "3 Tesla Siemens Magnetom Vida MR Cihazı",
+    "wpId": "4385",
+    "chars": 71,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "hakkimizda",
+    "title": "Hakkımızda",
+    "wpId": "5533",
+    "chars": 2154,
+    "images": [
+      "/media/2022/09/0146.png"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "sikca-sorulan-sorular",
+    "title": "Sıkça Sorulan Sorular",
+    "wpId": "5545",
+    "chars": 0,
+    "images": [],
+    "faq": 16
+  },
+  {
+    "type": "departments",
+    "slug": "kilolu-hastada-mr-goruntuleme",
+    "title": "Kilolu Hastada MR Görüntüleme",
+    "wpId": "5568",
+    "chars": 1743,
+    "images": [
+      "/media/2022/09/Kilolu-Hasta-Cizim.png"
+    ],
+    "faq": 1
+  },
+  {
+    "type": "departments",
+    "slug": "hsg-histerosalpingografi",
+    "title": "HSG (Histerosalpingografi)",
+    "wpId": "5584",
+    "chars": 5182,
+    "images": [
+      "/media/2022/09/Layer-32-1.png",
+      "/media/2022/09/Layer-35.png",
+      "/media/2022/09/Layer-36.png",
+      "/media/2022/09/Layer-37.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "dental-tomografi-ve-panoramik-rontgen",
+    "title": "Dental Tomografi ve Panoramik Röntgen",
+    "wpId": "5587",
+    "chars": 1738,
+    "images": [
+      "/media/2022/09/0128.png",
+      "/media/2022/09/0113.png",
+      "/media/2022/09/0129.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "doppler-ultrasonografi",
+    "title": "Renkli Doppler Ultrasonografi",
+    "wpId": "5609",
+    "chars": 1350,
+    "images": [
+      "/media/2022/09/0262-1.png",
+      "/media/2022/09/0277.png",
+      "/media/2022/09/0248.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "kemik-dansitometri",
+    "title": "Kemik Dansitometri",
+    "wpId": "5611",
+    "chars": 1867,
+    "images": [
+      "/media/2022/09/0216.png",
+      "/media/2022/09/0203.png",
+      "/media/2022/09/0228.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "girisimsel-radyoloji",
+    "title": "Girişimsel Radyoloji",
+    "wpId": "5614",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "online-randevu",
+    "title": "Online Randevu",
+    "wpId": "5705",
+    "chars": 360,
+    "images": [
+      "/media/2023/10/call-center-iyitem.jpg",
+      "/media/2023/10/whatsapp-iyitem.jpg"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "online-rapor",
+    "title": "Online Film-Rapor",
+    "wpId": "5712",
+    "chars": 443,
+    "images": [
+      "/media/2023/08/Hasta-Online-Rapor-01.png",
+      "/media/2023/08/Doktor-Online-Rapor-01.png"
+    ],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "cihazlarimiz",
+    "title": "Cihazlarımız",
+    "wpId": "5726",
+    "chars": 169,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "dilek-ve-onerileriniz",
+    "title": "Dilek ve Önerileriniz",
+    "wpId": "5841",
+    "chars": 224,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "hasta-haklari",
+    "title": "Hasta Hakları",
+    "wpId": "5846",
+    "chars": 4357,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "departments",
+    "slug": "check-up",
+    "title": "Check-Up",
+    "wpId": "5854",
+    "chars": 347,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "departments",
+    "slug": "dijital-mamografi",
+    "title": "Dijital Mamografi",
+    "wpId": "5966",
+    "chars": 1601,
+    "images": [
+      "/media/2022/09/0059.png",
+      "/media/2022/09/0088.png"
+    ],
+    "faq": 3
+  },
+  {
+    "type": "departments",
+    "slug": "hizmet-listemiz",
+    "title": "Hizmet Listemiz",
+    "wpId": "6012",
+    "chars": 3105,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "kvkk",
+    "title": "KVKK",
+    "wpId": "7183",
+    "chars": 6011,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "pages",
+    "slug": "3-tesla-mr",
+    "title": "3 Tesla MR",
+    "wpId": "7311",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "blog",
+    "slug": "3-tesla-mr-ile-iki-yillik-deneyim",
+    "title": "3 tesla MR ile iki yıllık deneyim",
+    "wpId": "7375",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  },
+  {
+    "type": "blog",
+    "slug": "baskili-mr",
+    "title": "baskılı MR",
+    "wpId": "7416",
+    "chars": 0,
+    "images": [],
+    "faq": 0
+  }
+]

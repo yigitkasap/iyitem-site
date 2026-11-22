@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { CONTACT, localePath } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { NOTFOUND_LINKS, pick } from '@/i18n/copy-pages';
+
+const locale = 'tr' as const;
+const t = useTranslations(locale);
+const links = pick(NOTFOUND_LINKS, locale);
+---
+
+<BaseLayout locale={locale} title={t('misc.notFoundTitle')} path="/404/" noindex>
+  <section class="shell flex flex-col items-center gap-5 py-20 text-center">
+    <span class="font-mono text-[clamp(58px,12vw,110px)] font-bold leading-none text-brand">404</span>
+    <h1 class="h2">{t('misc.notFoundTitle')}</h1>
+    <p class="max-w-xl text-[16px] leading-[1.7] text-body">{t('misc.notFoundText')}</p>
+
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      <a
+        href="/"
+        class="rounded-[10px] bg-brand px-6 py-3.5 text-[14.5px] font-bold text-white shadow-[var(--shadow-cta)] transition-colors hover:bg-brand-dark hover:text-white"
+      >
+        {t('cta.backHome')}
+      </a>
+      <a
+        href={CONTACT.phoneHref}
+        class="rounded-[10px] border border-line-input px-6 py-3.5 text-[14.5px] font-bold text-ink transition-colors hover:border-ink"
+      >
+        {CONTACT.phone}
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-surface py-14">
+    <div class="shell grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+      {
+        links.map((l) => (
+          <a
+            href={localePath(locale, l.href)}
+            class="flex flex-col gap-1.5 rounded-[14px] border border-line bg-white p-5 text-ink transition-all hover:-translate-y-[3px] hover:text-ink hover:shadow-[var(--shadow-card)]"
+          >
+            <span class="text-[16px] font-bold">{l.title}</span>
+            <span class="text-[13.5px] leading-[1.5] text-secondary">{l.desc}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import type { Faq } from '@/lib/content';
+
+/**
+ * FAQ accordion with the redesign's 22px square +/− marker. One item open at a
+ * time, and clicking the open item closes it — `name` on <details> gives that
+ * behaviour natively.
+ *
+ * Horizontal padding lives on the summary and the answer (not the item) so the
+ * "flush" variant's dividing rules still span the full card width.
+ */
+interface Props {
+  items: Faq[];
+  name?: string;
+  /** "card" wraps every item; "flush" shares one card, divided by rules. */
+  variant?: 'card' | 'flush';
+  openFirst?: boolean;
+  class?: string;
+}
+
+const { items, name = 'faq', variant = 'card', openFirst = true, class: className = '' } = Astro.props;
+
+const wrap =
+  variant === 'flush'
+    ? 'divide-y divide-line-soft rounded-[16px] border border-line bg-white'
+    : 'flex flex-col gap-2.5';
+
+const item =
+  variant === 'flush'
+    ? 'group'
+    : 'group overflow-hidden rounded-[14px] border border-line bg-white transition-colors open:border-brand/35';
+
+// Icon (22px) + gap (14px) = 36px, so the answer lines up under the question.
+const pad = 'px-5';
+const answerIndent = 'ps-[56px] pe-5';
+---
+
+<div class={`${wrap} ${className}`}>
+  {
+    items.map((faq, i) => (
+      <details name={name} open={openFirst && i === 0} class={item}>
+        <summary
+          class={`flex cursor-pointer list-none items-start gap-3.5 ${pad} py-[18px] text-[16px] font-bold leading-[1.45] text-ink transition-colors marker:hidden hover:text-brand group-open:text-brand [&::-webkit-details-marker]:hidden`}
+        >
+          <span
+            class="marker-glyph mt-0.5 flex h-[22px] w-[22px] flex-none items-center justify-center rounded-[6px] border border-line-input text-[15px] font-bold leading-none text-ink transition-colors group-open:border-brand group-open:bg-brand group-open:text-white"
+            aria-hidden="true"
+          >
+            <span class="group-open:hidden">+</span>
+            <span class="hidden group-open:inline">−</span>
+          </span>
+          <span class="flex-1">{faq.q}</span>
+        </summary>
+        <div
+          class={`prose-iyitem whitespace-pre-line ${answerIndent} pb-[18px] text-[15.5px]`}
+          set:html={faq.a}
+        />
+      </details>
+    ))
+  }
+</div>

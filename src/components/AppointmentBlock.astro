@@ -1,0 +1,57 @@
+---
+import ContactForm from './ContactForm.astro';
+import { CONTACT, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { HOME } from '@/i18n/copy';
+
+/** Dark info panel + white appointment form, as on the homepage. */
+interface Props {
+  locale: Locale;
+  id?: string;
+  tone?: 'surface' | 'white';
+}
+
+const { locale, id = 'randevu', tone = 'surface' } = Astro.props;
+const t = useTranslations(locale);
+const copy = (HOME[locale] ?? HOME.tr).appointment;
+---
+
+<section id={id} class:list={['py-16', tone === 'surface' ? 'bg-surface' : 'bg-white']}>
+  <div class="shell shell-form grid items-stretch gap-6 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+    <div class="flex flex-col gap-[22px] rounded-[18px] bg-ink p-[30px] text-white">
+      <div class="flex flex-col gap-2.5">
+        <span class="mono-meta text-hero-tag">{copy.label}</span>
+        <h2 class="text-[clamp(24px,2.6vw,32px)] font-extrabold leading-[1.15] text-white">
+          {copy.title}
+        </h2>
+        <p class="text-[15px] leading-[1.65] text-white/[.78]">{copy.body}</p>
+      </div>
+
+      <div class="flex flex-col gap-2.5">
+        <a
+          href={CONTACT.phoneHref}
+          class="flex flex-col gap-0.5 rounded-xl bg-white/[.08] px-4 py-3.5 text-white transition-colors hover:bg-white/15 hover:text-white"
+        >
+          <span class="text-xs text-white/65">{t('label.callCenter')}</span>
+          <span class="text-[17px] font-bold">{CONTACT.phone}</span>
+        </a>
+        <a
+          href={CONTACT.whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col gap-0.5 rounded-xl bg-white/[.08] px-4 py-3.5 text-white transition-colors hover:bg-white/15 hover:text-white"
+        >
+          <span class="text-xs text-white/65">WhatsApp</span>
+          <span class="text-[17px] font-bold">{CONTACT.whatsapp}</span>
+        </a>
+      </div>
+
+      <div class="mt-auto flex flex-col gap-2 text-[13.5px] leading-[1.55] text-white/[.78]">
+        <span><strong class="text-white">{t('label.address')}:</strong> {CONTACT.addressShort}</span>
+        <span><strong class="text-white">{t('label.hours')}:</strong> {CONTACT.hours}</span>
+      </div>
+    </div>
+
+    <ContactForm locale={locale} variant="appointment" id={`${id}-form`} />
+  </div>
+</section>

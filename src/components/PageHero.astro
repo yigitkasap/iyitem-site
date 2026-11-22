@@ -1,0 +1,80 @@
+---
+import Icon from './Icon.astro';
+import { localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+
+/**
+ * Inner-page banner: photo behind a dark scrim, breadcrumb, title, lead and
+ * optional CTAs. `tone="plain"` drops the photo for the dark-band variants
+ * (SSS, KVKK, search).
+ */
+export interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  locale: Locale;
+  title: string;
+  lead?: string;
+  image?: string;
+  crumbs?: Crumb[];
+  tone?: 'photo' | 'plain';
+  eyebrow?: string;
+}
+
+const { locale, title, lead, image, crumbs = [], tone = 'photo', eyebrow } = Astro.props;
+const t = useTranslations(locale);
+const trail = [{ label: t('nav.home'), href: '/' }, ...crumbs];
+---
+
+<section class="relative isolate overflow-hidden bg-hero text-white">
+  {
+    tone === 'photo' && image && (
+      <img
+        src={image}
+        alt=""
+        width="1920"
+        height="560"
+        loading="eager"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover opacity-45"
+      />
+    )
+  }
+  <div
+    class="absolute inset-0 bg-[linear-gradient(100deg,rgba(9,17,24,.94)_0%,rgba(9,17,24,.75)_55%,rgba(9,17,24,.5)_100%)] rtl:bg-[linear-gradient(260deg,rgba(9,17,24,.94)_0%,rgba(9,17,24,.75)_55%,rgba(9,17,24,.5)_100%)]"
+  >
+  </div>
+
+  <div class="shell relative py-14 sm:py-[72px]">
+    <nav aria-label={t('label.breadcrumb')}>
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-white/70">
+        {
+          trail.map((crumb, i) => (
+            <li class="flex items-center gap-2">
+              {i > 0 && <Icon name="chevronRight" size={13} class="opacity-60 rtl:-scale-x-100" />}
+              {crumb.href && i < trail.length - 1 ? (
+                <a href={localePath(locale, crumb.href)} class="text-white/70 hover:text-white">
+                  {crumb.label}
+                </a>
+              ) : (
+                <span class="text-white/90">{crumb.label}</span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    {eyebrow && <span class="mono-label mt-5 block text-hero-tag">{eyebrow}</span>}
+
+    <h1 class="reveal-now mt-4 max-w-4xl text-[clamp(28px,4.2vw,48px)] font-extrabold leading-[1.1] text-white">
+      {title}
+    </h1>
+
+    {lead && <p class="reveal-now mt-4 max-w-2xl text-[16.5px] leading-[1.7] text-white/[.85]">{lead}</p>}
+
+    <slot />
+  </div>
+</section>

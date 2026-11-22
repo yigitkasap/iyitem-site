@@ -1,0 +1,83 @@
+---
+import PageHero from '../PageHero.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitFaq, isStub, splitId } from '@/lib/content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'blog'>;
+}
+
+const { locale, entry } = Astro.props;
+const t = useTranslations(locale);
+const slug = splitId(entry.id).slug;
+const { body } = splitFaq(entry.body);
+const stub = isStub(body);
+
+const posts = await byLocale('blog', locale);
+const others = posts.filter((p) => splitId(p.id).slug !== slug);
+
+// ~200 words a minute, rounded up, from the stripped body.
+const words = body.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+---
+
+<PageHero
+  locale={locale}
+  title={entry.data.title}
+  image={entry.data.cover}
+  eyebrow={`${entry.data.date} · ${minutes} ${t('label.readingTime')}`}
+  crumbs={[{ label: t('nav.blog'), href: '/blog/' }, { label: entry.data.title }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_300px]">
+    <article class="flex flex-col gap-8">
+      {entry.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+      <div class="rounded-[18px] border border-line bg-white p-6 sm:p-9">
+        {
+          stub ? (
+            <p class="text-[15px] text-secondary">{t('misc.contentSoon')}</p>
+          ) : (
+            <div class="prose-iyitem [&_p]:text-[17px] [&_p]:leading-[1.8]" set:html={body} />
+          )
+        }
+      </div>
+    </article>
+
+    <aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
+      {
+        others.length > 0 && (
+          <div class="flex flex-col gap-3 rounded-[16px] border border-line bg-white p-6">
+            <span class="mono-meta text-muted">{t('label.recentPosts')}</span>
+            {others.map((p) => (
+              <a
+                href={localePath(locale, `/blog/${splitId(p.id).slug}/`)}
+                class="border-b border-line-soft pb-3 text-[14px] font-semibold leading-[1.45] text-ink last:border-0 last:pb-0 hover:text-brand"
+              >
+                {p.data.title}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
+        <span class="text-[17px] font-bold">3 Tesla MR</span>
+        <p class="text-[13.5px] leading-[1.6] text-white/75">
+          Geniş tüp çapı, kısa çekim süresi ve çifte kontrollü rapor.
+        </p>
+        <a
+          href={localePath(locale, '/iletisim/#randevu')}
+          class="rounded-[10px] bg-brand px-5 py-3 text-center text-[13.5px] font-bold text-white transition-colors hover:bg-brand-light hover:text-white"
+        >
+          {t('cta.appointment')}
+        </a>
+      </div>
+    </aside>
+  </div>
+</section>

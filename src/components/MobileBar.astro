@@ -1,0 +1,37 @@
+---
+import { CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+
+/** Fixed action bar below 900px: Ara · WhatsApp · Randevu Al. */
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const cell =
+  'flex min-h-[52px] items-center justify-center px-2 py-3.5 text-center text-sm font-bold transition-colors';
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-30 grid border-t border-line-form bg-white shadow-[var(--shadow-bar)] [grid-template-columns:1fr_1fr_1.2fr] [@media(min-width:900px)]:hidden"
+>
+  <a href={CONTACT.phoneHref} class={`${cell} text-ink hover:bg-surface hover:text-ink`}>
+    {t('cta.call')}
+  </a>
+  <a
+    href={CONTACT.whatsappHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={`${cell} border-x border-line-form text-wa-ink hover:bg-[#f2faf5] hover:text-wa-ink`}
+  >
+    WhatsApp
+  </a>
+  <a
+    href={localePath(locale, '/iletisim/#randevu')}
+    class={`${cell} bg-brand text-white hover:bg-brand-dark hover:text-white`}
+  >
+    {t('cta.appointment')}
+  </a>
+</div>

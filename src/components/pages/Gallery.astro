@@ -1,0 +1,215 @@
+---
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import { type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { GALLERY_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(GALLERY_PAGE, locale);
+const categories = [...new Set(copy.photos.map((p) => p.cat))];
+---
+
+<PageHero
+  locale={locale}
+  title={copy.title}
+  lead={copy.lead}
+  image="/assets/gal/2.webp"
+  crumbs={[{ label: t('nav.gallery') }]}
+/>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell flex flex-col gap-7">
+    <div class="flex flex-wrap items-center justify-between gap-3" data-gal-bar>
+      <div class="flex flex-wrap gap-2">
+        <button
+          type="button"
+          data-gal-filter="*"
+          aria-pressed="true"
+          class="cursor-pointer rounded-full border border-ink bg-ink px-4 py-2 text-[13.5px] font-bold text-white"
+        >
+          {t('label.all')}
+        </button>
+        {
+          categories.map((c) => (
+            <button
+              type="button"
+              data-gal-filter={c}
+              aria-pressed="false"
+              class="cursor-pointer rounded-full border border-[#e0ddd8] bg-white px-4 py-2 text-[13.5px] font-bold text-ink transition-colors hover:border-ink"
+            >
+              {c}
+            </button>
+          ))
+        }
+      </div>
+      <span class="mono-meta text-muted" data-gal-count>
+        {copy.photos.length} {copy.countLabel}
+      </span>
+    </div>
+
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))]">
+      {
+        copy.photos.map((p, i) => (
+          <button
+            type="button"
+            data-gal-item={i}
+            data-gal-cat={p.cat}
+            class="group reveal lift relative block cursor-pointer overflow-hidden rounded-[14px] border-0 p-0 text-start"
+          >
+            <img
+              src={p.src}
+              alt={p.caption}
+              width="600"
+              height="450"
+              loading="lazy"
+              decoding="async"
+              class="block w-full object-cover transition-transform duration-500 group-hover:scale-105 [aspect-ratio:4/3]"
+            />
+            <span class="absolute inset-x-0 bottom-0 bg-[linear-gradient(0deg,rgba(9,17,24,.85),transparent)] px-4 pb-3.5 pt-8 text-[13.5px] font-semibold text-white">
+              {p.caption}
+            </span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div
+  id="lightbox"
+  hidden
+  class="fixed inset-0 z-[60] flex flex-col bg-[rgba(9,17,24,.92)] p-4 sm:p-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label={copy.title}
+>
+  <div class="flex items-center justify-between gap-4 text-white">
+    <span data-lb-caption class="text-[15px] font-semibold"></span>
+    <button
+      type="button"
+      data-lb-close
+      aria-label={t('nav.menu')}
+      class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-ink"
+    >
+      <Icon name="x" size={20} />
+    </button>
+  </div>
+
+  <div class="flex flex-1 items-center justify-center gap-4 py-4">
+    <button
+      type="button"
+      data-lb-prev
+      aria-label="←"
+      class="flex h-11 w-11 flex-none cursor-pointer items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-ink"
+    >
+      <Icon name="chevronLeft" size={22} />
+    </button>
+    <img data-lb-img src="" alt="" class="max-h-[72vh] max-w-full rounded-[14px] object-contain" />
+    <button
+      type="button"
+      data-lb-next
+      aria-label="→"
+      class="flex h-11 w-11 flex-none cursor-pointer items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-ink"
+    >
+      <Icon name="chevronRight" size={22} />
+    </button>
+  </div>
+
+  <span data-lb-index class="mono-meta text-center text-white/70"></span>
+</div>
+
+<script>
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-gal-item]'));
+  const bar = document.querySelector<HTMLElement>('[data-gal-bar]');
+  const count = document.querySelector<HTMLElement>('[data-gal-count]');
+  const label = count?.textContent?.trim().split(/\s+/).slice(1).join(' ') ?? '';
+
+  const box = document.getElementById('lightbox');
+  const img = box?.querySelector<HTMLImageElement>('[data-lb-img]');
+  const caption = box?.querySelector<HTMLElement>('[data-lb-caption]');
+  const indexLabel = box?.querySelector<HTMLElement>('[data-lb-index]');
+
+  /** Only the currently filtered tiles take part in lightbox navigation. */
+  let shown: HTMLElement[] = items.slice();
+  let at = -1;
+
+  const render = () => {
+    const el = shown[at];
+    if (!el || !img || !box) return;
+    const source = el.querySelector('img');
+    img.src = source?.src ?? '';
+    img.alt = source?.alt ?? '';
+    if (caption) caption.textContent = source?.alt ?? '';
+    if (indexLabel) indexLabel.textContent = `${at + 1} / ${shown.length}`;
+  };
+
+  const open = (i: number) => {
+    at = i;
+    if (box) box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    render();
+    box?.querySelector<HTMLElement>('[data-lb-close]')?.focus();
+  };
+
+  const close = () => {
+    if (box) box.hidden = true;
+    document.body.style.overflow = '';
+    at = -1;
+  };
+
+  const step = (delta: number) => {
+    if (at < 0) return;
+    at = (at + delta + shown.length) % shown.length;
+    render();
+  };
+
+  items.forEach((el) =>
+    el.addEventListener('click', () => open(shown.indexOf(el)))
+  );
+
+  box?.querySelector('[data-lb-close]')?.addEventListener('click', close);
+  box?.querySelector('[data-lb-prev]')?.addEventListener('click', () => step(-1));
+  box?.querySelector('[data-lb-next]')?.addEventListener('click', () => step(1));
+  box?.addEventListener('click', (e) => {
+    if (e.target === box) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (box?.hidden !== false) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+
+  bar?.querySelectorAll<HTMLButtonElement>('[data-gal-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const want = btn.dataset.galFilter;
+      close();
+
+      bar.querySelectorAll<HTMLButtonElement>('[data-gal-filter]').forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-pressed', String(on));
+        b.classList.toggle('bg-ink', on);
+        b.classList.toggle('border-ink', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-white', !on);
+        b.classList.toggle('text-ink', !on);
+        b.classList.toggle('border-[#e0ddd8]', !on);
+      });
+
+      shown = items.filter((el) => {
+        const match = want === '*' || el.dataset.galCat === want;
+        el.hidden = !match;
+        return match;
+      });
+      if (count) count.textContent = `${shown.length} ${label}`;
+    });
+  });
+</script>

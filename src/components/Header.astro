@@ -1,0 +1,245 @@
+---
+import Icon from './Icon.astro';
+import Flag from './Flag.astro';
+import {
+  SITE,
+  CONTACT,
+  NAV,
+  LOCALES,
+  LOCALE_META,
+  localePath,
+  type Locale,
+} from '@/lib/site';
+import { useTranslations, type UIKey } from '@/i18n/ui';
+
+interface Props {
+  locale: Locale;
+  /** Root-relative path without the locale prefix, e.g. "/hizmetlerimiz/". */
+  path?: string;
+  showTopBar?: boolean;
+}
+
+const { locale, path = '/', showTopBar = true } = Astro.props;
+const t = useTranslations(locale);
+const meta = LOCALE_META[locale];
+
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+
+const topBarItems = [
+  { icon: 'phone', label: CONTACT.phone, href: CONTACT.phoneHref },
+  { icon: 'mail', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { icon: 'whatsapp', label: CONTACT.whatsapp, href: CONTACT.whatsappHref, external: true },
+];
+
+const navLink =
+  'whitespace-nowrap rounded-lg px-[7px] py-2 text-[13px] font-semibold transition-colors hover:bg-surface';
+---
+
+{
+  showTopBar && (
+    <div class="bg-brand text-[13px] font-medium text-white">
+      <div class="shell flex flex-wrap items-center gap-x-6 gap-y-1.5 py-[13px]">
+        {
+          topBarItems.map((item) => (
+            <a
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              class="inline-flex items-center gap-2 whitespace-nowrap text-white hover:text-white/85"
+            >
+              <Icon name={item.icon} size={15} class="shrink-0 opacity-90" />
+              <span dir="ltr">{item.label}</span>
+            </a>
+          ))
+        }
+        <span class="ms-auto whitespace-nowrap font-bold">{SITE.legalName}</span>
+      </div>
+    </div>
+  )
+}
+
+<header
+  id="site-header"
+  class="sticky top-0 z-20 border-b border-line-head bg-white/95 backdrop-blur-[10px]"
+>
+  <div class="shell flex flex-nowrap items-center gap-3 py-[18px] [@media(min-width:1300px)]:gap-9">
+    <a href={localePath(locale, '/')} class="block flex-none" aria-label={SITE.name}>
+      <img
+        src={SITE.logo}
+        alt={SITE.name}
+        width="201"
+        height="30"
+        class="block h-auto w-full max-w-[132px] object-contain min-[480px]:max-w-[150px] sm:max-w-[201px]"
+      />
+    </a>
+
+    <!-- Full menu ≥1300px -->
+    <nav aria-label={t('nav.menu')} class="hidden flex-none items-center [@media(min-width:1300px)]:flex">
+      {
+        NAV.map((item) => (
+          <a
+            href={localePath(locale, item.href)}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[navLink, isActive(item.href) ? 'text-brand' : 'text-ink']}
+          >
+            {t(`nav.${item.key}` as UIKey)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Hamburger <1300px -->
+    <button
+      type="button"
+      id="menu-toggle"
+      aria-label={t('nav.menu')}
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="flex h-[42px] w-[42px] flex-none items-center justify-center rounded-[11px] border border-[#e0ddd8] bg-white text-ink transition-colors hover:bg-surface [@media(min-width:1300px)]:hidden"
+    >
+      <Icon name="menu" size={20} />
+    </button>
+
+    <div class="ms-auto flex flex-none items-center gap-2 sm:gap-3">
+      <!-- Language switcher -->
+      <div class="relative flex-none" id="lang-switch">
+        <button
+          type="button"
+          id="lang-toggle"
+          aria-label={t('nav.language')}
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="lang-menu"
+          class="lang-pill group/lang flex h-[38px] cursor-pointer items-center gap-1.5 rounded-full border border-line-form bg-surface pe-3 ps-[7px] text-[12.5px] font-bold text-ink"
+        >
+          <Flag locale={locale} />
+          <span class="hidden min-[480px]:inline">{meta.short}</span>
+          <Icon name="chevronDown" size={13} strokeWidth={2.5} class="lang-caret" />
+        </button>
+
+        <div
+          id="lang-menu"
+          hidden
+          class="absolute end-0 top-[calc(100%+8px)] z-40 flex min-w-[168px] flex-col gap-0.5 rounded-xl border border-line-form bg-white p-1.5 shadow-[var(--shadow-drop)]"
+          role="menu"
+        >
+          {
+            LOCALES.map((code) => (
+              <a
+                href={localePath(code, path)}
+                hreflang={LOCALE_META[code].htmlLang}
+                lang={LOCALE_META[code].htmlLang}
+                role="menuitem"
+                aria-current={code === locale ? 'true' : undefined}
+                class:list={[
+                  'flex items-center gap-2.5 rounded-[9px] px-2.5 py-[9px] text-sm text-ink transition-colors hover:bg-surface hover:text-ink',
+                  code === locale ? 'bg-surface font-bold' : 'font-semibold',
+                ]}
+              >
+                <Flag locale={code} />
+                <span>{LOCALE_META[code].label}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <a
+        href={localePath(locale, '/arama/')}
+        aria-label={t('nav.search')}
+        class="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[11px] border border-line-form bg-surface text-ink transition-colors hover:border-ink hover:bg-ink hover:text-white"
+      >
+        <Icon name="search" size={17} />
+      </a>
+
+      {/* Below 900px the fixed MobileBar already carries this call to action. */}
+      <a
+        href={localePath(locale, '/iletisim/#randevu')}
+        class="hidden whitespace-nowrap rounded-[10px] bg-brand px-[18px] py-[11px] text-[13.5px] font-bold text-white shadow-[var(--shadow-cta)] transition-colors hover:bg-brand-dark hover:text-white [@media(min-width:900px)]:inline-block"
+      >
+        {t('cta.appointment')}
+      </a>
+    </div>
+  </div>
+
+  <!-- Hamburger panel -->
+  <nav
+    id="mobile-menu"
+    hidden
+    aria-label={t('nav.menu')}
+    class="grid gap-0.5 border-t border-line-head bg-white px-5 pb-3.5 pt-2 text-[14.5px] font-semibold [grid-template-columns:repeat(auto-fit,minmax(150px,1fr))] [@media(min-width:1300px)]:hidden"
+  >
+    {
+      NAV.map((item) => (
+        <a
+          href={localePath(locale, item.href)}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class:list={[
+            'rounded-[9px] px-2.5 py-[11px] transition-colors hover:bg-surface',
+            isActive(item.href) ? 'text-brand' : 'text-ink',
+          ]}
+        >
+          {t(`nav.${item.key}` as UIKey)}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const langToggle = document.getElementById('lang-toggle');
+  const langMenu = document.getElementById('lang-menu');
+  const langWrap = document.getElementById('lang-switch');
+
+  const setExpanded = (btn: HTMLElement | null, panel: HTMLElement | null, open: boolean) => {
+    btn?.setAttribute('aria-expanded', String(open));
+    if (panel) panel.hidden = !open;
+  };
+
+  menuToggle?.addEventListener('click', () => {
+    const open = menuToggle.getAttribute('aria-expanded') === 'true';
+    setExpanded(menuToggle, menu, !open);
+    setExpanded(langToggle, langMenu, false);
+  });
+
+  langToggle?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const open = langToggle.getAttribute('aria-expanded') === 'true';
+    setExpanded(langToggle, langMenu, !open);
+  });
+
+  // Close the dropdown on outside click and on Escape; keep focus sensible.
+  document.addEventListener('click', (event) => {
+    if (!langWrap?.contains(event.target as Node)) setExpanded(langToggle, langMenu, false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (langToggle?.getAttribute('aria-expanded') === 'true') {
+      setExpanded(langToggle, langMenu, false);
+      (langToggle as HTMLElement).focus();
+    }
+    if (menuToggle?.getAttribute('aria-expanded') === 'true') {
+      setExpanded(menuToggle, menu, false);
+      (menuToggle as HTMLElement).focus();
+    }
+  });
+
+  // Arrow-key navigation inside the language menu.
+  langMenu?.addEventListener('keydown', (event) => {
+    const items = Array.from(langMenu.querySelectorAll<HTMLAnchorElement>('a[role="menuitem"]'));
+    const current = items.indexOf(document.activeElement as HTMLAnchorElement);
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      const next = event.key === 'ArrowDown' ? current + 1 : current - 1;
+      items[(next + items.length) % items.length]?.focus();
+    }
+  });
+
+  // The desktop nav reappears at 1300px — drop the panel so it cannot linger.
+  window.matchMedia('(min-width: 1300px)').addEventListener('change', (e) => {
+    if (e.matches) setExpanded(menuToggle, menu, false);
+  });
+</script>

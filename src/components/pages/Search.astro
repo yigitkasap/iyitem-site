@@ -1,0 +1,178 @@
+---
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import { CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { byLocale, splitId } from '@/lib/content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+/**
+ * The index is built at build time from the content collections — no runtime
+ * fetch, no search library. Filtering happens client-side over this JSON.
+ */
+const [departments, devices, doctors, posts] = await Promise.all([
+  byLocale('departments', locale),
+  byLocale('devices', locale),
+  byLocale('doctors', locale),
+  byLocale('blog', locale),
+]);
+
+type Row = { type: string; title: string; desc: string; href: string };
+
+const index: Row[] = [
+  ...departments.map((d) => ({
+    type: t('nav.services'),
+    title: d.data.title,
+    desc: d.data.summary,
+    href: localePath(locale, `/hizmetlerimiz/${splitId(d.id).slug}/`),
+  })),
+  ...devices.map((d) => ({
+    type: t('nav.devices'),
+    title: d.data.title,
+    desc: d.data.summary,
+    href: localePath(locale, `/cihazlarimiz/${splitId(d.id).slug}/`),
+  })),
+  ...doctors.map((d) => ({
+    type: t('nav.doctors'),
+    title: d.data.title,
+    desc: d.data.interests,
+    href: localePath(locale, `/doktorlarimiz/${splitId(d.id).slug}/`),
+  })),
+  ...posts.map((p) => ({
+    type: t('nav.blog'),
+    title: p.data.title,
+    desc: p.data.summary || p.data.lead,
+    href: localePath(locale, `/blog/${splitId(p.id).slug}/`),
+  })),
+  { type: t('nav.about'), title: t('nav.about'), desc: '1995’ten beri görüntüleme hizmeti', href: localePath(locale, '/hakkimizda/') },
+  { type: t('nav.faq'), title: t('nav.faq'), desc: 'Hazırlık, süre ve rapor süreci', href: localePath(locale, '/sikca-sorulan-sorular/') },
+  { type: t('nav.onlineReport'), title: t('nav.onlineReport'), desc: 'Hasta ve doktor girişi', href: localePath(locale, '/online-hizmetler/online-rapor/') },
+  { type: t('nav.checkup'), title: t('nav.checkup'), desc: 'Kapsamlı görüntüleme paketleri', href: localePath(locale, '/check-up/') },
+  { type: t('nav.howToCome'), title: t('nav.howToCome'), desc: 'Ulaşım ve hazırlık bilgileri', href: localePath(locale, '/nasil-gelmelisiniz/') },
+  { type: t('nav.gallery'), title: t('nav.gallery'), desc: 'Merkezimizden fotoğraflar', href: localePath(locale, '/galeri/') },
+  { type: t('nav.contact'), title: t('nav.contact'), desc: 'Adres, harita ve çalışma saatleri', href: localePath(locale, '/iletisim/') },
+];
+
+const suggestions = ['MR', 'Tomografi', 'Mamografi', 'Kemik dansitometri', 'Check-up', 'Randevu'];
+---
+
+<PageHero locale={locale} title={t('nav.search')} tone="plain" crumbs={[{ label: t('nav.search') }]}>
+  <form class="mt-7 flex max-w-2xl gap-2" role="search" data-search-form>
+    <label class="sr-only" for="q">{t('nav.search')}</label>
+    <input
+      id="q"
+      name="q"
+      type="search"
+      placeholder={t('label.searchPlaceholder')}
+      class="field !border-white/30 !bg-white/10 !text-white placeholder:text-white/50"
+      data-search-input
+    />
+    <button
+      type="submit"
+      class="flex-none cursor-pointer rounded-[10px] bg-brand px-6 text-[14.5px] font-bold text-white transition-colors hover:bg-brand-light"
+    >
+      <Icon name="search" size={18} class="mx-auto" />
+    </button>
+  </form>
+
+  <div class="mt-4 flex flex-wrap gap-2">
+    {
+      suggestions.map((s) => (
+        <button
+          type="button"
+          data-suggest={s}
+          class="cursor-pointer rounded-full border border-white/30 px-3.5 py-1.5 text-[12.5px] font-semibold text-white/85 transition-colors hover:bg-white/15"
+        >
+          {s}
+        </button>
+      ))
+    }
+  </div>
+
+  <p class="mono-meta mt-5 text-white/70" data-search-count></p>
+</PageHero>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell flex flex-col gap-3.5">
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]" data-search-results></div>
+
+    <div hidden data-search-empty class="flex flex-col items-start gap-3 rounded-[18px] border border-line bg-white p-8">
+      <span class="text-[18px] font-bold">Sonuç bulunamadı</span>
+      <p class="text-[14.5px] leading-[1.6] text-secondary">
+        Aradığınızı bulamadıysanız çağrı merkezimiz yardımcı olabilir.
+      </p>
+      <a
+        href={CONTACT.phoneHref}
+        class="rounded-[10px] bg-brand px-5 py-3 text-[13.5px] font-bold text-white transition-colors hover:bg-brand-dark hover:text-white"
+      >
+        {CONTACT.phone}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="search-index" is:inline set:html={JSON.stringify(index)} />
+
+<script>
+  const raw = document.getElementById('search-index')?.textContent ?? '[]';
+  const index: { type: string; title: string; desc: string; href: string }[] = JSON.parse(raw);
+
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const count = document.querySelector<HTMLElement>('[data-search-count]');
+
+  // Turkish-aware lowercasing so "İ" and "I" behave.
+  const norm = (s: string) => s.toLocaleLowerCase('tr').trim();
+
+  const render = (query: string) => {
+    const q = norm(query);
+    const hits = q
+      ? index.filter((r) => norm(r.title).includes(q) || norm(r.desc).includes(q) || norm(r.type).includes(q))
+      : index;
+
+    if (results) {
+      results.innerHTML = hits
+        .map(
+          (r) => `
+          <a href="${r.href}" class="flex flex-col gap-2 rounded-[14px] border border-line bg-white p-5 text-ink transition-all hover:-translate-y-[3px] hover:border-brand hover:text-ink hover:shadow-[var(--shadow-card)]">
+            <span class="mono-meta text-muted">${r.type}</span>
+            <span class="text-[16.5px] font-bold leading-[1.3]">${r.title}</span>
+            <span class="text-[13.5px] leading-[1.55] text-secondary">${r.desc}</span>
+          </a>`
+        )
+        .join('');
+    }
+    if (empty) empty.hidden = hits.length > 0;
+    if (count) count.textContent = `${hits.length} sonuç`;
+  };
+
+  // ?q= drives the initial render, so a search URL can be shared.
+  const initial = new URLSearchParams(location.search).get('q') ?? '';
+  if (input) input.value = initial;
+  render(initial);
+
+  input?.addEventListener('input', () => render(input.value));
+
+  document.querySelector('[data-search-form]')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const url = new URL(location.href);
+    if (input?.value) url.searchParams.set('q', input.value);
+    else url.searchParams.delete('q');
+    history.replaceState(null, '', url);
+    render(input?.value ?? '');
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-suggest]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      if (input) input.value = btn.dataset.suggest ?? '';
+      render(input?.value ?? '');
+    })
+  );
+</script>

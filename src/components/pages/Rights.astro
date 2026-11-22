@@ -1,0 +1,177 @@
+---
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { SITE, CONTACT, localePath, type Locale } from '@/lib/site';
+import { useTranslations } from '@/i18n/ui';
+import { oneBySlug, splitFaq } from '@/lib/content';
+import { RIGHTS_PAGE, pick } from '@/i18n/copy-pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const copy = pick(RIGHTS_PAGE, locale);
+
+const [rights, kvkk] = await Promise.all([
+  oneBySlug('pages', locale, 'hasta-haklari'),
+  oneBySlug('pages', locale, 'kvkk'),
+]);
+
+/** Split the rights page into its <h4> + <p> pairs so each becomes a card. */
+const rightsBody = splitFaq(rights?.body).body;
+const cards = [...rightsBody.matchAll(/<h4>([\s\S]*?)<\/h4>\s*<p>([\s\S]*?)<\/p>/g)].map(
+  (m, i) => ({
+    no: String(i + 1).padStart(2, '0'),
+    title: m[1].replace(/<[^>]+>/g, '').trim(),
+    text: m[2].replace(/<[^>]+>/g, '').trim(),
+  })
+);
+
+const kvkkBody = splitFaq(kvkk?.body).body;
+---
+
+<PageHero locale={locale} title={copy.title} lead={copy.lead} tone="plain" crumbs={[{ label: copy.title }]}>
+  <div class="mt-7 flex flex-wrap gap-2" role="tablist" aria-label={copy.title}>
+    <button
+      type="button"
+      role="tab"
+      id="tab-rights"
+      aria-controls="panel-rights"
+      aria-selected="true"
+      data-tab="rights"
+      class="cursor-pointer rounded-full bg-white px-5 py-2.5 text-[13.5px] font-bold text-ink transition-colors"
+    >
+      {copy.tabRights}
+    </button>
+    <button
+      type="button"
+      role="tab"
+      id="tab-kvkk"
+      aria-controls="panel-kvkk"
+      aria-selected="false"
+      data-tab="kvkk"
+      class="cursor-pointer rounded-full border border-white/45 px-5 py-2.5 text-[13.5px] font-bold text-white transition-colors hover:bg-white/15"
+    >
+      {copy.tabKvkk}
+    </button>
+  </div>
+</PageHero>
+
+<section class="bg-surface-2 py-14">
+  <div class="shell grid gap-8 lg:[grid-template-columns:minmax(0,1fr)_320px]">
+    <div class="flex flex-col gap-8">
+      <!-- Patient rights -->
+      <div id="panel-rights" role="tabpanel" aria-labelledby="tab-rights" class="flex flex-col gap-6">
+        {rights?.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+          {
+            cards.map((c) => (
+              <div class="reveal flex flex-col gap-2.5 rounded-[16px] border border-line bg-white p-6">
+                <span class="mono-label w-fit rounded-full border border-[#f3cdcb] px-2.5 py-1 text-brand">
+                  {c.no}
+                </span>
+                <span class="text-[17px] font-bold leading-[1.3]">{c.title}</span>
+                <p class="text-[14px] leading-[1.6] text-secondary">{c.text}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="flex flex-col gap-3 rounded-[18px] bg-ink p-8 text-white">
+          <span class="text-[19px] font-bold">{copy.unitTitle}</span>
+          <p class="text-[14.5px] leading-[1.65] text-white/75">{copy.unitBody}</p>
+          <a
+            href={localePath(locale, '/dilek-ve-onerileriniz/')}
+            class="w-fit rounded-[10px] bg-brand px-5 py-3 text-[13.5px] font-bold text-white transition-colors hover:bg-brand-light hover:text-white"
+          >
+            {t('nav.suggestions')}
+          </a>
+        </div>
+      </div>
+
+      <!-- KVKK -->
+      <div id="panel-kvkk" role="tabpanel" aria-labelledby="tab-kvkk" hidden class="flex flex-col gap-6">
+        {kvkk?.data.draftTranslation && <TranslationNotice locale={locale} />}
+
+        <div class="rounded-[18px] border border-line bg-white p-6 sm:p-9">
+          <div class="prose-iyitem" set:html={kvkkBody} />
+        </div>
+
+        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+          {
+            copy.docs.map((d) => (
+              <a
+                href={d.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex flex-col gap-2.5 rounded-[16px] border border-line bg-white p-5 text-ink lift reveal hover:text-ink hover:shadow-[var(--shadow-card)]"
+              >
+                <Icon name="file-text" size={22} class="text-brand" />
+                <span class="text-[15px] font-bold leading-[1.4]">{d.title}</span>
+                <span class="mono-meta text-muted">PDF · {t('label.openInNewTab')}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <aside class="flex flex-col gap-3 rounded-[16px] border border-line bg-white p-6 lg:sticky lg:top-24 lg:self-start">
+      <span class="mono-meta text-muted">{copy.controllerTitle}</span>
+      <dl class="flex flex-col gap-3 text-[13.5px] leading-[1.55]">
+        <div><dt class="font-bold">{SITE.company}</dt></div>
+        <div>
+          <dt class="text-muted">MERSİS</dt>
+          <dd class="text-body">{SITE.mersis}</dd>
+        </div>
+        <div>
+          <dt class="text-muted">{t('label.address')}</dt>
+          <dd class="text-body">Dr. Adnan Adıvar Cad. No:5/1 Haseki / İstanbul</dd>
+        </div>
+        <div>
+          <dt class="text-muted">{t('label.phone')} · {t('label.fax')}</dt>
+          <dd class="text-body">{CONTACT.phone} · {CONTACT.fax}</dd>
+        </div>
+        <div>
+          <dt class="text-muted">{t('label.email')}</dt>
+          <dd><a href="mailto:iyitem@hotmail.com">iyitem@hotmail.com</a></dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+  const panels: Record<string, HTMLElement | null> = {
+    rights: document.getElementById('panel-rights'),
+    kvkk: document.getElementById('panel-kvkk'),
+  };
+
+  const select = (key: string) => {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.tab === key;
+      tab.setAttribute('aria-selected', String(on));
+      tab.classList.toggle('bg-white', on);
+      tab.classList.toggle('text-ink', on);
+      tab.classList.toggle('border', !on);
+      tab.classList.toggle('border-white/45', !on);
+      tab.classList.toggle('text-white', !on);
+    });
+    Object.entries(panels).forEach(([name, panel]) => {
+      if (panel) panel.hidden = name !== key;
+    });
+  };
+
+  tabs.forEach((tab) => tab.addEventListener('click', () => select(tab.dataset.tab ?? 'rights')));
+
+  // #kvkk in the URL opens the second tab directly.
+  if (location.hash === '#kvkk') select('kvkk');
+  window.addEventListener('hashchange', () => {
+    if (location.hash === '#kvkk') select('kvkk');
+  });
+</script>
