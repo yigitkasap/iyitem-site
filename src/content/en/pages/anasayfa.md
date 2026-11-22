@@ -7,7 +7,7 @@ cover: "/media/2025/10/557-1.webp"
 date: "2020-10-01"
 order: 1
 appointmentForm: true
-draftTranslation: true
+draftTranslation: false
 ---
 <h2>Welcome!</h2><p>İyitem Imaging Centre has been at your service <strong>since 1995</strong>. We continue to provide care you can rely on with our <strong>Siemens</strong> 3 Tesla Vida, <b>General Electric</b> 128-slice Revolution Maxima CT, Canon i800 Doppler ultrasound, GMM Opera T digital X-ray with fluoroscopy, DMS bone densitometry and KaVo dental CT and digital panoramic X-ray systems — and with our <strong>experienced team</strong>.</p>
 

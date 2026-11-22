@@ -7,9 +7,11 @@ cover: "/assets/dev-bt.webp"
 date: "2020-01-02"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "128-slice Revolution Maxima — low-dose coronary and whole-body angiography."
+summary: "128-slice Revolution Maxima — low-dose coronary and whole-body CT angiography."
 brand: "General Electric"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>With our 128-slice GE Revolution Maxima CT scanner we perform low-dose coronary CT angiography and whole-body CT angiography.</p>
+
+<p>The scanner allows cardiac angiography in 4–5 seconds, virtual colonoscopy and QCT bone density measurement. Large-bowel screening can be done by virtual colonoscopy, without the need for a conventional colonoscopy.</p>

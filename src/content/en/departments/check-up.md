@@ -7,7 +7,7 @@ cover: "/assets/svc-checkup.webp"
 date: "2020-01-12"
 order: 0
 appointmentForm: true
-draftTranslation: true
+draftTranslation: false
 category: "Check-up"
 summary: "Comprehensive imaging packages built around age and risk."
 ---

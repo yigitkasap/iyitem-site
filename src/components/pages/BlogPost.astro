@@ -67,9 +67,9 @@ const minutes = Math.max(1, Math.round(words / 200));
       }
 
       <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
-        <span class="text-[17px] font-bold">3 Tesla MR</span>
+        <span class="text-[17px] font-bold">{t('blogPost.teslaTitle')}</span>
         <p class="text-[13.5px] leading-[1.6] text-white/75">
-          Geniş tüp çapı, kısa çekim süresi ve çifte kontrollü rapor.
+          {t('blogPost.teslaBody')}
         </p>
         <a
           href={localePath(locale, '/iletisim/#randevu')}

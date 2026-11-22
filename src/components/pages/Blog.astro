@@ -17,7 +17,7 @@ const [featured, ...rest] = posts;
 <PageHero
   locale={locale}
   title={t('nav.blog')}
-  lead="Görüntüleme, hazırlık süreçleri ve cihazlarımız üzerine hekimlerimizin yazıları."
+  lead={t('blog.lead')}
   crumbs={[{ label: t('nav.blog') }]}
 />
 
@@ -106,7 +106,7 @@ const [featured, ...rest] = posts;
       <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
         <span class="text-[17px] font-bold">{t('cta.appointment')}</span>
         <p class="text-[13.5px] leading-[1.6] text-white/75">
-          MR, BT ve diğer tetkikler için randevunuzu oluşturun.
+          {t('blog.sideBody')}
         </p>
         <a
           href={localePath(locale, '/iletisim/#randevu')}

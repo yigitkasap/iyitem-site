@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "Stratos — lomber, femur ve tüm vücut kemik yoğunluğu ölçümü."
+summary: "DMS — standart, tüm vücut, radial ve çocuklarda kemik yoğunluğu ölçümü."
 brand: "DMS"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Kemik yoğunluğu kaybı, günümüzde özellikle menopoz sonrası kadınlarda ve yaşlı nüfusta önemli bir sağlık problemidir.</p>
+
+<p>DMS kemik dansitometri cihazımızla standart kemik ölçümünün yanında tüm vücut kemik yoğunluğu, radial kemik yoğunluğu ve çocuklarda kemik yoğunluğu ölçümleri yapılabilmektedir.</p>

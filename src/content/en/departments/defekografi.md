@@ -7,8 +7,8 @@ cover: "/assets/svc-defekografi.webp"
 date: "2020-01-10"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "Fluoroscopic examination of the pelvic floor and of defecation."
 ---
 <p><strong>After an enema, a specially prepared contrast agent with a consistency similar to stool is introduced through the rectum, and the patient is imaged with a fluoroscopic digital X-ray system while passing it in a seated position. The study gives information about both the anatomy and the function of the organ.</strong></p>

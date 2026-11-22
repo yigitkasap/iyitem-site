@@ -7,8 +7,8 @@ cover: "/assets/svc-skolyoz.webp"
 date: "2020-01-09"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "Whole-spine assessment in a single exposure, reported with angle measurements."
 ---
 <p><strong>A scoliosis X-ray is a technique for imaging curvature in the mid-back and lower back. Front-to-back and lateral views are taken as standard. It establishes both whether a curvature is present and, by taking measurements on the images, the degree of the scoliosis.</strong></p>

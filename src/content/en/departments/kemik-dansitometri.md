@@ -7,8 +7,8 @@ cover: "/assets/svc-kemik.webp"
 date: "2020-01-07"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "Osteoporosis diagnosis and annual follow-up reports with the DMS Stratos."
 ---
 <p><strong>Bone densitometry is an advanced form of X-ray examination using a low dose of radiation. The vertebrae between L1 and L4 and the hip bone are imaged, as these show bone loss clearly. The examination establishes the degree of weakness in the bones and the risk of fracture.</strong></p>

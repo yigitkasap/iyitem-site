@@ -50,16 +50,16 @@ const index: Row[] = [
     desc: p.data.summary || p.data.lead,
     href: localePath(locale, `/blog/${splitId(p.id).slug}/`),
   })),
-  { type: t('nav.about'), title: t('nav.about'), desc: '1995’ten beri görüntüleme hizmeti', href: localePath(locale, '/hakkimizda/') },
-  { type: t('nav.faq'), title: t('nav.faq'), desc: 'Hazırlık, süre ve rapor süreci', href: localePath(locale, '/sikca-sorulan-sorular/') },
-  { type: t('nav.onlineReport'), title: t('nav.onlineReport'), desc: 'Hasta ve doktor girişi', href: localePath(locale, '/online-hizmetler/online-rapor/') },
-  { type: t('nav.checkup'), title: t('nav.checkup'), desc: 'Kapsamlı görüntüleme paketleri', href: localePath(locale, '/check-up/') },
-  { type: t('nav.howToCome'), title: t('nav.howToCome'), desc: 'Ulaşım ve hazırlık bilgileri', href: localePath(locale, '/nasil-gelmelisiniz/') },
-  { type: t('nav.gallery'), title: t('nav.gallery'), desc: 'Merkezimizden fotoğraflar', href: localePath(locale, '/galeri/') },
-  { type: t('nav.contact'), title: t('nav.contact'), desc: 'Adres, harita ve çalışma saatleri', href: localePath(locale, '/iletisim/') },
+  { type: t('nav.about'), title: t('nav.about'), desc: t('search.descAbout'), href: localePath(locale, '/hakkimizda/') },
+  { type: t('nav.faq'), title: t('nav.faq'), desc: t('search.descFaq'), href: localePath(locale, '/sikca-sorulan-sorular/') },
+  { type: t('nav.onlineReport'), title: t('nav.onlineReport'), desc: t('search.descReport'), href: localePath(locale, '/online-hizmetler/online-rapor/') },
+  { type: t('nav.checkup'), title: t('nav.checkup'), desc: t('search.descCheckup'), href: localePath(locale, '/check-up/') },
+  { type: t('nav.howToCome'), title: t('nav.howToCome'), desc: t('search.descHowToCome'), href: localePath(locale, '/nasil-gelmelisiniz/') },
+  { type: t('nav.gallery'), title: t('nav.gallery'), desc: t('search.descGallery'), href: localePath(locale, '/galeri/') },
+  { type: t('nav.contact'), title: t('nav.contact'), desc: t('search.descContact'), href: localePath(locale, '/iletisim/') },
 ];
 
-const suggestions = ['MR', 'Tomografi', 'Mamografi', 'Kemik dansitometri', 'Check-up', 'Randevu'];
+const suggestions = t('search.suggestions').split('|');
 ---
 
 <PageHero locale={locale} title={t('nav.search')} tone="plain" crumbs={[{ label: t('nav.search') }]}>
@@ -95,7 +95,7 @@ const suggestions = ['MR', 'Tomografi', 'Mamografi', 'Kemik dansitometri', 'Chec
     }
   </div>
 
-  <p class="mono-meta mt-5 text-white/70" data-search-count></p>
+  <p class="mono-meta mt-5 text-white/70" data-search-count data-label={t('search.results')}></p>
 </PageHero>
 
 <section class="bg-surface-2 py-14">
@@ -103,9 +103,9 @@ const suggestions = ['MR', 'Tomografi', 'Mamografi', 'Kemik dansitometri', 'Chec
     <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]" data-search-results></div>
 
     <div hidden data-search-empty class="flex flex-col items-start gap-3 rounded-[18px] border border-line bg-white p-8">
-      <span class="text-[18px] font-bold">Sonuç bulunamadı</span>
+      <span class="text-[18px] font-bold">{t('search.noResults')}</span>
       <p class="text-[14.5px] leading-[1.6] text-secondary">
-        Aradığınızı bulamadıysanız çağrı merkezimiz yardımcı olabilir.
+        {t('search.noResultsBody')}
       </p>
       <a
         href={CONTACT.phoneHref}
@@ -150,7 +150,7 @@ const suggestions = ['MR', 'Tomografi', 'Mamografi', 'Kemik dansitometri', 'Chec
         .join('');
     }
     if (empty) empty.hidden = hits.length > 0;
-    if (count) count.textContent = `${hits.length} sonuç`;
+    if (count) count.textContent = `${hits.length} ${count.dataset.label ?? ''}`;
   };
 
   // ?q= drives the initial render, so a search URL can be shared.

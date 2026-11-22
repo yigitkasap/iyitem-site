@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "OP 300 — cone beam 3D dental tomografi ve dijital panoramik röntgen."
+summary: "Kavo OP 300 — cone beam 3B dental tomografi ve dijital panoramik röntgen."
 brand: "KaVo"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Dental tomografi ve panoramik röntgen cihazımız, KAVO firmasının üç boyutlu cone beam volumetrik 3D diş tomografi cihazıdır. Oldukça düşük doz radyasyonla kaliteli görüntüler elde edilir; dental tomografi sırasında panoramik röntgen kadar ya da bir akciğer grafisinden daha az radyasyon alınır.</p>
+
+<p>Panoramik röntgen, alt ve üst çenenin tüm dişlerle birlikte görülebilmesini sağlar. Panoramik röntgen ve dental tomografi çekimleri bir dakikadan daha kısa sürede yapılır.</p>

@@ -7,9 +7,11 @@ cover: "/assets/dev-usg.webp"
 date: "2020-01-03"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "أبليو i800 — دوبلر ملوّن وتخطيط صدى القلب وخزعات موجَّهة بالموجات فوق الصوتية."
+summary: "Canon i800 — دوبلر ملوّن وتخطيط صدى القلب ومسبار للأطفال."
 brand: "Canon"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>يتكوّن جهاز الموجات فوق الصوتية الملوّنة (دوبلر) من حاسوب رئيسي ولوحة تحكم وشاشة ومسابير. ويمكن بمسبار تخطيط صدى القلب في جهاز Canon i800 لدينا إجراء إيكو القلب.</p>
+
+<p>إلى جانب المسابير الاعتيادية، يُستخدم مسبار خاص بالأطفال يتيح فحص البطن لدى الأطفال والرضّع.</p>

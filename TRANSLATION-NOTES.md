@@ -1,19 +1,26 @@
 # Çeviri notları — EN / AR
 
-## Yenileme sonrası durum (2026 tasarımı)
+## Durum (Kasım 2026)
 
-Tasarım yenilemesiyle birlikte **yeni sayfalar** eklendi: Check-up, Nasıl
-Gelmelisiniz, 3 Tesla MR, Arama, Hasta Hakları/KVKK sekmeleri ve her sayfanın
-banner metinleri. Bu yeni metinler şu an **yalnızca Türkçe**
-([src/i18n/copy-pages.ts](src/i18n/copy-pages.ts)); EN ve AR bu sayfalarda
-Türkçeye düşüyor, site kırılmıyor.
+Sitenin bütün metinleri artık üç dilde var:
 
-Çevrilmiş olanlar: arayüz sözlüğü ([ui.ts](src/i18n/ui.ts), 3 dil), anasayfa
-metinleri ([copy.ts](src/i18n/copy.ts), 3 dil), hizmet/cihaz kart özetleri ve
-tüm koleksiyon içerikleri (15 tetkik, 7 cihaz, 2 doktor, 3 blog, 15 sayfa).
+- arayüz sözlüğü ([ui.ts](src/i18n/ui.ts)), bileşenlerde gömülü kalan Türkçe
+  metinler (arama, doktor kartı, geri bildirim, çalışma saatleri, tetkik ve
+  konu seçenekleri, SSS kenar kutusu) dahil;
+- anasayfa ([copy.ts](src/i18n/copy.ts));
+- iç sayfalar ([copy-pages.ts](src/i18n/copy-pages.ts)): Hakkımızda, Cihazlar,
+  Doktorlar, Online Rapor, Galeri, İletişim, Nasıl Gelmelisiniz, Check-up,
+  3 Tesla MR, Hasta Hakları, Dilek ve Öneriler;
+- tüm koleksiyon içerikleri (15 tetkik, 7 cihaz, 2 doktor, 3 blog, 15 sayfa) ve
+  hizmet kategorileri.
 
-Kalan iş: `copy-pages.ts` içindeki `en` ve `ar` anahtarlarını doldurmak.
-Yapı hazır — `pick()` otomatik olarak dolu olanı kullanır.
+Yalnızca 404 sayfası Türkçe (statik barındırmada tek 404 dosyası olur); dil
+seçicisi oradan her dilin anasayfasına gider.
+
+Türkçe kaynak metinler Kasım 2026'da eski site www.iyitem.com ile karşılaştırılıp
+düzeltildi (bkz. README → "İçerik kaynağı"); EN/AR çeviriler o düzeltilmiş
+Türkçeden yapıldı. Kasım 2026'da **taslaktan çıkarıldı**: bütün içerik dosyalarında
+`draftTranslation: false` ve sayfalarda uyarı şeridi yok.
 
 ## Eski sitedeki durum
 
@@ -27,16 +34,10 @@ Dolayısıyla çevrilecek bir EN/AR metni yoktu. Bu klasördeki tüm İngilizce 
 içerik, **Türkçe aslından bu yeniden yazım sırasında çevrildi** ve klinik onayı
 beklemektedir.
 
-## Onay bekleyen içerik
+## Taslak işareti
 
-Taslak dosyaların frontmatter'ında `draftTranslation: true` var ve sayfada sarı bir
-uyarı şeridi gösteriliyor. Listeyi görmek için:
-
-```bash
-grep -rl "draftTranslation: true" src/content/en src/content/ar
-```
-
-Onaylanan sayfada bu alanı `false` yapın; uyarı kalkar.
+Bir sayfa yeniden taslağa alınacaksa frontmatter'da `draftTranslation: true` yapın;
+sayfada sarı uyarı şeridi görünür.
 
 ## Onaylarken özellikle bakılması gerekenler
 
@@ -79,5 +80,5 @@ yeminli tercüme yaptırılmalıdır.
   gerçek sözü olduğu için EN/AR'de anlamı korunarak aktarıldı; imza değiştirilmedi.
   Gerçek bir kişiye ait olduğundan, yayından önce bu kişinin çeviri metne de rızası
   olduğundan emin olun.
-- **Boş sayfalar.** Cihaz sayfaları, iki blog yazısı ve Girişimsel Radyoloji Türkçede
-  de boş olduğu için üç dilde de yalnızca başlık taşıyor.
+- **Cihaz sayfaları** Kasım 2026'da eski sitenin hizmet sayfalarındaki cümlelerle
+  üç dilde dolduruldu (eski sitedeki cihaz sayfaları tema demo metniydi).

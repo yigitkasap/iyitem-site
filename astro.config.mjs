@@ -13,7 +13,13 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [sitemap({ i18n: { defaultLocale: 'tr', locales: { tr: 'tr-TR', en: 'en-US', ar: 'ar' } } })],
+  integrations: [
+    sitemap({
+      i18n: { defaultLocale: 'tr', locales: { tr: 'tr-TR', en: 'en-US', ar: 'ar' } },
+      // The search page is noindex; keep it out of the sitemap too.
+      filter: (page) => !page.endsWith('/arama/'),
+    }),
+  ],
   vite: {
     // Cast: @tailwindcss/vite resolves its own Vite copy, so its Plugin type
     // does not line up nominally with the one Astro bundles. Runtime is fine.

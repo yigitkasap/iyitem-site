@@ -6,7 +6,6 @@ import Carousel from '../Carousel.astro';
 import {
   BRANDS,
   SHORTCUTS,
-  CONTACT,
   localePath,
   type Locale,
 } from '@/lib/site';
@@ -225,6 +224,7 @@ const cardShell =
     <div class="flex min-w-0 flex-col gap-4" data-quotes>
       <div class="flex flex-wrap items-center justify-between gap-3">
         <span class="mono-label text-brand">{copy.quotesLabel}</span>
+        {copy.quotes.length > 1 && (
         <span class="flex gap-2">
           <button
             type="button"
@@ -243,6 +243,7 @@ const cardShell =
             <Icon name="arrowRight" size={15} class="mx-auto rtl:-scale-x-100" />
           </button>
         </span>
+        )}
       </div>
 
       <div class="overflow-hidden">
@@ -254,7 +255,7 @@ const cardShell =
                   {q.text}
                 </p>
                 <span class="text-[15px] font-bold">— {q.name}</span>
-                <span class="text-[13px] text-secondary">{q.meta}</span>
+                {q.meta && <span class="text-[13px] text-secondary">{q.meta}</span>}
               </div>
             ))
           }
@@ -263,7 +264,7 @@ const cardShell =
 
       <div class="flex items-center gap-[7px]">
         {
-          copy.quotes.map((_, i) => (
+          copy.quotes.length > 1 && copy.quotes.map((_, i) => (
             <button
               type="button"
               data-quote-dot={i}

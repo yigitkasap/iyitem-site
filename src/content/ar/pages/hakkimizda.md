@@ -7,7 +7,7 @@ cover: "/media/2022/09/0146.webp"
 date: "2022-09-19"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 ---
 <h1><strong>خدمة جديرة بالثقة</strong></h1>
 

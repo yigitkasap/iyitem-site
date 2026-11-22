@@ -26,7 +26,7 @@ const related = [
 <PageHero
   locale={locale}
   title={page?.data.title ?? t('nav.faq')}
-  lead={`${faq.length} soru · MR, BT, hazırlık ve raporlama süreçleri`}
+  lead={t('faq.lead').replace('{n}', String(faq.length))}
   tone="plain"
   crumbs={[{ label: t('nav.faq') }]}
 />
@@ -40,9 +40,9 @@ const related = [
 
     <aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
       <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
-        <span class="text-[17px] font-bold">Sorunuz burada yok mu?</span>
+        <span class="text-[17px] font-bold">{t('faq.helpTitle')}</span>
         <p class="text-[13.5px] leading-[1.6] text-white/75">
-          Çağrı merkezimizi arayın; tetkikiniz ve hazırlık süreci hakkında yardımcı olalım.
+          {t('faq.helpBody')}
         </p>
         <a
           href={CONTACT.phoneHref}

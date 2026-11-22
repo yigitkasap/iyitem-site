@@ -7,8 +7,8 @@ cover: "/assets/svc-mr.webp"
 date: "2020-01-01"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kesitsel görüntüleme"
+draftTranslation: false
+category: "Cross-sectional imaging"
 summary: "Siemens 3 Tesla Vida: a wide bore, thin slices and short scan times."
 ---
 <p><strong>MRI is an imaging technique that works by using radiofrequency pulses to change the orientation of the magnetic fields of hydrogen atoms in the body, then measuring the energy they release — taking advantage of the fact that every tissue releases a different amount of energy.</strong></p>

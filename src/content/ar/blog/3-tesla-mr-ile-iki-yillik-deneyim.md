@@ -7,6 +7,6 @@ cover: "/assets/blog-2.webp"
 date: "2024-08-21"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 summary: "انتقلنا إلى 3 تسلا عام 2022. وبعد سنتين، إليك ما تغيّر عمليًا وأين يظهر الفارق بوضوح."
 ---

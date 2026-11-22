@@ -7,8 +7,8 @@ cover: "/assets/svc-bt.webp"
 date: "2020-01-02"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kesitsel görüntüleme"
+draftTranslation: false
+category: "Cross-sectional imaging"
 summary: "Low-dose, fast scanning with the GE 128-slice Revolution Maxima."
 ---
 <p><strong>A CT scanner consists of a ring-shaped X-ray unit and a moving patient table. During the examination, cross-sectional images of organs, bones or tissues are taken from different angles. The computer then combines those slices into a three-dimensional image.</strong></p>

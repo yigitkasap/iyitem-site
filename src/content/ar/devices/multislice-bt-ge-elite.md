@@ -7,9 +7,11 @@ cover: "/assets/dev-bt.webp"
 date: "2020-01-02"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "ريفولوشن ماكسيما بـ128 شريحة — تصوير أوعية تاجي وكامل الجسم بجرعة منخفضة."
+summary: "Revolution Maxima بـ128 شريحة — تصوير أوعية تاجية وللجسم كاملًا بجرعة منخفضة."
 brand: "General Electric"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>نُجري بجهاز التصوير المقطعي GE Revolution Maxima ذي الـ128 شريحة تصوير الأوعية التاجية وتصوير أوعية الجسم كاملًا بالتصوير المقطعي وبجرعة منخفضة.</p>
+
+<p>يتيح الجهاز تصوير أوعية القلب خلال 4–5 ثوانٍ، وتنظير القولون الافتراضي، وقياس كثافة العظام بتقنية QCT. ويمكن فحص الأمعاء الغليظة بتنظير القولون الافتراضي دون الحاجة إلى تنظير تقليدي.</p>

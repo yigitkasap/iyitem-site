@@ -7,7 +7,7 @@ cover: "/assets/svc-liste.webp"
 date: "2020-01-14"
 order: 0
 appointmentForm: true
-draftTranslation: true
+draftTranslation: false
 category: "Check-up"
 summary: "An up-to-date list of every examination we perform, with explanations."
 ---

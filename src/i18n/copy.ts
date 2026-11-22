@@ -3,9 +3,11 @@ import type { Locale } from '@/lib/site';
 /**
  * Page-level marketing copy from the 2026 redesign.
  *
- * Turkish is taken verbatim from the handoff prototypes. English and Arabic are
- * translations made during the rebuild and are marked draft in
- * TRANSLATION-NOTES.md — they carry no clinical claims the Turkish does not.
+ * Turkish is taken verbatim from the handoff prototypes (the testimonial is the
+ * one real patient comment from the old site; the three invented ones were
+ * removed in November 2026). English and Arabic are
+ * translations made during the rebuild (published November 2026, see
+ * TRANSLATION-NOTES.md) — they carry no clinical claims the Turkish does not.
  */
 
 type Slide = { tag: string; title: string; body: string };
@@ -47,7 +49,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     brandsLabel: 'Cihaz altyapımız',
     about: {
       title: "İyi hizmeti uygun fiyata, 1995'ten beri aynı özenle",
-      body: 'Siemens 3 Tesla Vida MR, GE 128 kesit Revolution Maxima BT, Canon i800 Doppler ultrasonografi, GMM floroskopili dijital röntgen, DMS kemik dansitometri ve Kavo dental tomografi cihazlarımızla; iki radyoloji uzmanımızın çifte kontrolünde güvenilir hizmet veriyoruz.',
+      body: 'Siemens 3 Tesla Vida MR, GE 128 kesit Revolution Maxima BT, Canon i800 Doppler ve Siemens Acuson Sequoia ultrasonografi, GMM floroskopili dijital röntgen, DMS kemik dansitometri ve Kavo dental tomografi cihazlarımızla; iki radyoloji uzmanımızın çifte kontrolünde güvenilir hizmet veriyoruz.',
       stats: [
         { value: '1995', label: 'kuruluş' },
         { value: '3 Tesla', label: 'Siemens MR' },
@@ -70,22 +72,7 @@ export const HOME: Record<Locale, HomeCopy> = {
       {
         text: 'Tecrübeli doktorları, güler yüzlü ekibiyle içeri girer girmez özel hissettiren bir kurum. İlgileri için ayrıca teşekkür ederim.',
         name: 'Yıldız Ahmetoğlu',
-        meta: 'MR · Google yorumu',
-      },
-      {
-        text: 'Randevu saatinde içeri alındım, çekim 15 dakikada bitti ve raporum aynı gün elimdeydi. Doktoruma hemen iletebildim.',
-        name: 'Murat K.',
-        meta: 'BT · Google yorumu',
-      },
-      {
-        text: 'Klostrofobim olduğu için çok tedirgindim. Teknisyen hanım her aşamayı anlattı, geniş cihazda hiç sıkıntı yaşamadım.',
-        name: 'Elif S.',
-        meta: 'MR · Google yorumu',
-      },
-      {
-        text: 'Annemin kemik ölçümü için gittik. Yaşlı hastaya gösterilen sabır ve ilgi gerçekten örnek olacak düzeydeydi.',
-        name: 'Hakan Demirtaş',
-        meta: 'Kemik dansitometri · Google yorumu',
+        meta: '',
       },
     ],
     postsTitle: 'Son Makaleler',
@@ -117,7 +104,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     brandsLabel: 'Our equipment',
     about: {
       title: 'Good care at a fair price, with the same attention since 1995',
-      body: 'With our Siemens 3 Tesla Vida MRI, GE 128-slice Revolution Maxima CT, Canon i800 Doppler ultrasound, GMM digital X-ray with fluoroscopy, DMS bone densitometry and KaVo dental CT, we deliver care you can rely on — double-checked by our two radiologists.',
+      body: 'With our Siemens 3 Tesla Vida MRI, GE 128-slice Revolution Maxima CT, Canon i800 Doppler and Siemens Acuson Sequoia ultrasound, GMM digital X-ray with fluoroscopy, DMS bone densitometry and KaVo dental CT, we deliver care you can rely on — double-checked by our two radiologists.',
       stats: [
         { value: '1995', label: 'founded' },
         { value: '3 Tesla', label: 'Siemens MRI' },
@@ -140,22 +127,7 @@ export const HOME: Record<Locale, HomeCopy> = {
       {
         text: 'Experienced doctors and a welcoming team — a place that makes you feel looked after the moment you walk in. Thank you for your care.',
         name: 'Yıldız Ahmetoğlu',
-        meta: 'MRI · Google review',
-      },
-      {
-        text: 'I was taken in at my appointment time, the scan was over in 15 minutes and I had my report the same day. I could send it straight to my doctor.',
-        name: 'Murat K.',
-        meta: 'CT · Google review',
-      },
-      {
-        text: 'I was very anxious because of my claustrophobia. The technician explained every step, and I had no trouble at all in the wide scanner.',
-        name: 'Elif S.',
-        meta: 'MRI · Google review',
-      },
-      {
-        text: 'We went for my mother’s bone density scan. The patience and attention shown to an elderly patient were genuinely exemplary.',
-        name: 'Hakan Demirtaş',
-        meta: 'Bone densitometry · Google review',
+        meta: '',
       },
     ],
     postsTitle: 'Latest Articles',
@@ -187,7 +159,7 @@ export const HOME: Record<Locale, HomeCopy> = {
     brandsLabel: 'بنيتنا التقنية',
     about: {
       title: 'خدمة جيدة بسعر مناسب، وبالعناية نفسها منذ 1995',
-      body: 'بأجهزتنا: سيمنس فيدا 3 تسلا للرنين المغناطيسي، وجنرال إلكتريك ريفولوشن ماكسيما بـ128 شريحة للتصوير المقطعي، وكانون i800 لتصوير دوبلر، وجهاز GMM للأشعة الرقمية المزوّد بالتنظير الفلوري، وDMS لقياس كثافة العظام، وكافو للتصوير المقطعي للأسنان؛ نقدّم خدمة جديرة بالثقة تحت الفحص المزدوج لطبيبَي الأشعة لدينا.',
+      body: 'بأجهزتنا: سيمنس فيدا 3 تسلا للرنين المغناطيسي، وجنرال إلكتريك ريفولوشن ماكسيما بـ128 شريحة للتصوير المقطعي، وكانون i800 لتصوير دوبلر، وسيمنس أكيوسون سيكويا للموجات فوق الصوتية، وجهاز GMM للأشعة الرقمية المزوّد بالتنظير الفلوري، وDMS لقياس كثافة العظام، وكافو للتصوير المقطعي للأسنان؛ نقدّم خدمة جديرة بالثقة تحت الفحص المزدوج لطبيبَي الأشعة لدينا.',
       stats: [
         { value: '1995', label: 'سنة التأسيس' },
         { value: '3 تسلا', label: 'رنين سيمنس' },
@@ -210,22 +182,7 @@ export const HOME: Record<Locale, HomeCopy> = {
       {
         text: 'أطباء ذوو خبرة وفريق لطيف — مكان يشعرك بالعناية منذ لحظة دخولك. شكرًا لكم على اهتمامكم.',
         name: 'يلدز أحمد أوغلو',
-        meta: 'رنين مغناطيسي · تقييم غوغل',
-      },
-      {
-        text: 'دخلت في موعدي تمامًا، وانتهى الفحص خلال 15 دقيقة، وتسلّمت تقريري في اليوم نفسه فأرسلته فورًا إلى طبيبي.',
-        name: 'مراد ك.',
-        meta: 'تصوير مقطعي · تقييم غوغل',
-      },
-      {
-        text: 'كنت قلقة جدًا بسبب رهاب الأماكن المغلقة. شرحت لي الفنية كل خطوة، ولم أواجه أي صعوبة في الجهاز الواسع.',
-        name: 'أليف س.',
-        meta: 'رنين مغناطيسي · تقييم غوغل',
-      },
-      {
-        text: 'ذهبنا لقياس كثافة عظام والدتي. كان الصبر والاهتمام تجاه مريضة مسنّة مثاليًا بحق.',
-        name: 'هاكان دميرتاش',
-        meta: 'قياس كثافة العظام · تقييم غوغل',
+        meta: '',
       },
     ],
     postsTitle: 'أحدث المقالات',

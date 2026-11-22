@@ -64,7 +64,7 @@ const siblings = await byLocale('departments', locale);
               locale={locale}
               variant="appointment"
               id={`svc-${slug}`}
-              scan={entry.data.title}
+              scan={splitId(entry.id).slug}
             />
           </div>
         )

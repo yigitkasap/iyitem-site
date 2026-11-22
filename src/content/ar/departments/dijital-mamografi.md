@@ -7,8 +7,8 @@ cover: "/assets/svc-mamografi.webp"
 date: "2020-01-06"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kadın sağlığı"
+draftTranslation: false
+category: "صحة المرأة"
 summary: "فحص الثدي بدقة عالية وجرعة منخفضة بجهاز فوجي أميوليت."
 ---
 <p><strong>تصوير الثدي الشعاعي الرقمي فحص صحي يُنصح بإجرائه سنويًا للنساء ابتداءً من سنّ الأربعين. تُلتقط صورة رقمية للثدي الموضوع بين لوحين مخصّصين، ويستغرق هذا الفحص دقائق معدودة وقد يوفّر التشخيص المبكر الذي يُنقذ الحياة.</strong></p>

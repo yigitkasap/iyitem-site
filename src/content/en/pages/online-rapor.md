@@ -7,7 +7,7 @@ cover: "/media/2023/08/Hasta-Online-Rapor-01.webp"
 date: "2022-09-24"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 ---
 <figure><img src="/media/2023/08/Hasta-Online-Rapor-01.webp" alt="" /></figure>
 

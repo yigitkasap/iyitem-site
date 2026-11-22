@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "Opera T — floroskopili dijital röntgen, 9 megapiksel düz panel dedektör."
+summary: "GMM Opera T — floroskopili dijital röntgen."
 brand: "GMM"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Merkezimizde GMM Opera T marka floroskopili dijital röntgen cihazını kullanıyoruz. Floroskopi ile canlı görüntü takibinde oldukça düşük dozlar verilir.</p>
+
+<p>Skolyoz ve boy grafileri, dijital röntgen ve stitching tekniğiyle en düşük dozda radyasyonla ve doğrulukla çekilebilmektedir.</p>

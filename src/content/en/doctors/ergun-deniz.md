@@ -8,7 +8,7 @@ date: "2020-10-27"
 order: 2
 appointmentForm: false
 specialty: "Radiology Specialist"
-draftTranslation: true
+draftTranslation: false
 education: "Selçuk University, Radiology (2000) · Uludağ University Faculty of Medicine (1995)"
 interests: "Musculoskeletal radiology · Neuroradiology"
 ---

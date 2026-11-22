@@ -34,6 +34,8 @@ const meta = LOCALE_META[locale];
 
 const pageTitle = path === '/' ? `${SITE.name} — ${SITE.legalName}` : `${title} | ${SITE.name}`;
 const canonical = new URL(localePath(locale, path), SITE.url).href;
+/** The 404 page has no real URL of its own: no canonical, no alternates. */
+const isNotFound = path === '/404/';
 const ogImage = new URL(image || SITE.logo, SITE.url).href;
 
 const clinicSchema = {
@@ -83,10 +85,11 @@ const clinicSchema = {
     </script>
     <title>{pageTitle}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="canonical" href={canonical} />
+    {!isNotFound && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     {
+      !isNotFound &&
       LOCALES.map((code) => (
         <link
           rel="alternate"
@@ -95,7 +98,7 @@ const clinicSchema = {
         />
       ))
     }
-    <link rel="alternate" hreflang="x-default" href={new URL(localePath('tr', path), SITE.url).href} />
+    {!isNotFound && <link rel="alternate" hreflang="x-default" href={new URL(localePath('tr', path), SITE.url).href} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />

@@ -9,7 +9,7 @@ const t = useTranslations(locale);
 const links = pick(NOTFOUND_LINKS, locale);
 ---
 
-<BaseLayout locale={locale} title={t('misc.notFoundTitle')} path="/404/" noindex>
+<BaseLayout locale={locale} title={t('misc.notFoundTitle')} description={t('misc.notFoundText')} path="/404/" noindex>
   <section class="shell flex flex-col items-center gap-5 py-20 text-center">
     <span class="font-mono text-[clamp(58px,12vw,110px)] font-bold leading-none text-brand">404</span>
     <h1 class="h2">{t('misc.notFoundTitle')}</h1>

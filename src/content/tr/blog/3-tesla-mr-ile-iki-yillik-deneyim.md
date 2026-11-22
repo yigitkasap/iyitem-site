@@ -21,9 +21,9 @@ summary: "2022'de 3 Tesla'ya geçtik. İki yılın ardından pratikte nelerin de
 
 <p>Eski 1,5 Tesla arşivimizden bir hastanın önceki tetkiki karşılaştırma için geldiğinde farkı yan yana görmek mümkün oluyor — özellikle kontrol amaçlı tekrarlanan çekimlerde, aynı bölgenin iki cihazdaki görüntüsü arasındaki çözünürlük farkı belirgin.</p>
 
-<h4>Süre: yapay zekâ destekli sekanslar</h4>
+<h4>Süre: yapay zeka destekli sekanslar</h4>
 
-<p>Yüksek alan gücü tek başına süreyi kısaltmıyor; asıl kazanç, sinyal fazlalığının yapay zekâ destekli rekonstrüksiyon teknikleriyle birleşmesinden geliyor. Rutin beyin ve bel incelemelerinde çekim süresi belirgin biçimde kısaldı. Bu, iki açıdan önemli: hasta tüpte daha kısa kalıyor ve hareket kaynaklı görüntü bozulması azalıyor.</p>
+<p>Yüksek alan gücü tek başına süreyi kısaltmıyor; asıl kazanç, sinyal fazlalığının yapay zeka destekli rekonstrüksiyon teknikleriyle birleşmesinden geliyor. Rutin beyin ve bel incelemelerinde çekim süresi belirgin biçimde kısaldı. Bu, iki açıdan önemli: hasta tüpte daha kısa kalıyor ve hareket kaynaklı görüntü bozulması azalıyor.</p>
 
 <p>Süre kısalmasının en çok işe yaradığı grup, uzun süre hareketsiz kalmakta zorlanan hastalar: yaşlılar, ağrısı olanlar ve çocuklar. Daha önce anestezi gerektirebilecek bazı çekimleri artık anestezisiz tamamlayabiliyoruz.</p>
 

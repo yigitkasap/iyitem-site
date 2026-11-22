@@ -7,8 +7,8 @@ cover: "/assets/svc-mr.webp"
 date: "2020-01-01"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kesitsel görüntüleme"
+draftTranslation: false
+category: "التصوير المقطعي"
 summary: "سيمنس فيدا 3 تسلا: نفق واسع ومقاطع دقيقة ومدة فحص قصيرة."
 ---
 <p><strong>التصوير بالرنين المغناطيسي تقنية تصوير تعتمد على تغيير اتجاه المجالات المغناطيسية لذرات الهيدروجين في الجسم بواسطة موجات الراديو، ثم قياس الطاقة التي تُطلقها، مع الاستفادة من أن كل نسيج يُطلق قدرًا مختلفًا من الطاقة.</strong></p>

@@ -19,8 +19,8 @@ const {
   locale,
   title,
   items,
-  questionTitle = 'Sorunuz mu var?',
-  questionBody = 'Tetkikiniz, hazırlık ve randevu hakkında çağrı merkezimiz yardımcı olur.',
+  questionTitle,
+  questionBody,
 } = Astro.props;
 
 const t = useTranslations(locale);
@@ -56,8 +56,8 @@ const t = useTranslations(locale);
   </nav>
 
   <div class="flex flex-col gap-3 rounded-[16px] bg-ink p-6 text-white">
-    <span class="text-[17px] font-bold">{questionTitle}</span>
-    <p class="text-[13.5px] leading-[1.6] text-white/75">{questionBody}</p>
+    <span class="text-[17px] font-bold">{questionTitle ?? t('sidebar.questionTitle')}</span>
+    <p class="text-[13.5px] leading-[1.6] text-white/75">{questionBody ?? t('sidebar.questionBody')}</p>
     <a href={CONTACT.phoneHref} class="flex items-center gap-2.5 text-[17px] font-bold text-white hover:text-white" dir="ltr">
       <Icon name="phone" size={17} />
       {CONTACT.phone}

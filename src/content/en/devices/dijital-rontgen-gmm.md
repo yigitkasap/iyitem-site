@@ -7,9 +7,11 @@ cover: "/assets/dev-rontgen.webp"
 date: "2020-01-05"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "Opera T — digital X-ray with fluoroscopy and a 9-megapixel flat panel detector."
+summary: "GMM Opera T — digital X-ray with fluoroscopy."
 brand: "GMM"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Our centre uses a GMM Opera T digital X-ray system with fluoroscopy. Fluoroscopic live imaging is performed with very low doses.</p>
+
+<p>Scoliosis and full-length films can be taken accurately and at the lowest radiation dose using digital X-ray and the stitching technique.</p>

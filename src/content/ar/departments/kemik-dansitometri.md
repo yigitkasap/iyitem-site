@@ -7,8 +7,8 @@ cover: "/assets/svc-kemik.webp"
 date: "2020-01-07"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "الأشعة السينية"
 summary: "تشخيص هشاشة العظام وتقارير المتابعة السنوية بجهاز DMS ستراتوس."
 ---
 <p><strong>قياس كثافة العظام شكل متطوّر من التصوير الشعاعي يستخدم جرعة منخفضة من الأشعة السينية. تُصوَّر الفقرات بين L1 وL4 وعظم الورك، لأنها تُظهر فقدان كتلة العظم بوضوح. ويحدّد الفحص درجة الضعف في العظام وخطر الكسور.</strong></p>

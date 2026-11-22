@@ -124,12 +124,22 @@ if (kind === 'home') {
   title = t(LISTINGS[base].navKey);
   path = `/${base}/`;
   const items = await byLocale(collection, locale);
-  description = items.slice(0, 6).map((e) => e.data.title).join(' · ');
+  const listingLead: Record<ListingKey, string> = {
+    hizmetlerimiz: pick(SERVICES_PAGE, locale).lead,
+    cihazlarimiz: pick(DEVICES_PAGE, locale).lead,
+    doktorlarimiz: pick(DOCTORS_PAGE, locale).lead,
+    blog: t('blog.lead'),
+  };
+  description = listingLead[base] || items.slice(0, 6).map((e) => e.data.title).join(' · ');
   image = items[0]?.data.cover || undefined;
 } else if (kind === 'detail' && base && collection && slug) {
   entry = await resolve(collection, slug);
   title = entry?.data.title ?? '';
-  description = entry?.data.summary || entry?.data.lead || '';
+  description =
+    entry?.data.summary ||
+    entry?.data.lead ||
+    (collection === 'doctors' ? pick(DOCTORS_PAGE, locale).summary[slug] : '') ||
+    '';
   path = `/${base}/${slug}/`;
   image = entry?.data.cover || undefined;
 
@@ -163,7 +173,7 @@ if (kind === 'home') {
 
   const c = copyByKind[kind as StandaloneKind];
   title = c?.title ?? (kind === 'faq' ? t('nav.faq') : t('nav.search'));
-  description = c?.lead ?? '';
+  description = c?.lead ?? (kind === 'faq' ? t('meta.faq') : t('meta.search'));
 
   if (kind === 'faq') {
     const faqPage = await byLocale('pages', locale).then((all) =>

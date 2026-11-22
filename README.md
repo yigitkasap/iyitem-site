@@ -28,7 +28,7 @@ src/
   pages/[...path].astro           TÜM rotalar burada üretilir
   i18n/ui.ts                      arayüz metinleri (3 dil)
   i18n/copy.ts                    anasayfa metinleri (3 dil)
-  i18n/copy-pages.ts              iç sayfa metinleri (TR; EN/AR TR'ye düşer)
+  i18n/copy-pages.ts              iç sayfa metinleri (3 dil)
   lib/site.ts                     iletişim, menü, portal ve sabitler
   lib/routes.ts                   rota tabloları
   styles/global.css               tasarım token'ları
@@ -77,13 +77,16 @@ Frontmatter alanları: `title`, `slug`, `lead`, `cover`, `order`,
 `specialty`, `education`, `interests`. Gövde sonundaki `<!--faq-->` bloğu JSON'dur
 ve akordeona dönüşür.
 
-## Formlar — kurulum gerekiyor
+## Formlar
 
-Site statik olduğu için formlar bir dış uca POST eder. Uç tanımlanmadan **form
-gönderimi devre dışıdır** ve yerinde kurulum uyarısı gösterilir; böylece bir hasta
-talebi sessizce kaybolmaz.
+Site statik olduğu için formlar iki yoldan birini kullanır:
 
-`.env` dosyası oluşturun:
+- **`PUBLIC_FORM_ENDPOINT` tanımlıysa** form oraya POST eder (Formspree, Worker…).
+  Randevu formundaki T.C. kimlik alanı yalnızca bu durumda görünür.
+- **Tanımlı değilse** form doldurulan bilgileri WhatsApp mesajına çevirir
+  (`+90 530 237 75 59`). T.C. kimlik alanı gösterilmez; numara randevuda alınır.
+
+`.env`:
 
 ```
 PUBLIC_FORM_ENDPOINT=https://...
@@ -93,33 +96,53 @@ PUBLIC_FORM_ENDPOINT=https://...
 algoritması** (checksum), e-posta ve zorunlu KVKK onayı. Honeypot alanı mevcut;
 production'da ayrıca hCaptcha/reCAPTCHA ve merkeze e-posta bildirimi eklenmeli.
 
-> **KVKK uyarısı:** Randevu formu **T.C. Kimlik Numarası** topluyor (tasarımda öyle).
-> Bu kimlik verisidir; seçilecek form servisinin veri işleyici sözleşmesi kapsamında
-> olması ve yurt dışına aktarımın KVKK m.9'a uygun olması gerekir. Bu alanın gerçekten
-> gerekli olup olmadığını klinikle teyit etmenizi öneririm.
+> **KVKK uyarısı:** Uç tanımlanınca randevu formu **T.C. Kimlik Numarası** toplar
+> (eski sitedeki form da topluyordu). Seçilecek form servisinin veri işleyici
+> sözleşmesi kapsamında olması ve yurt dışına aktarımın KVKK m.9'a uygun olması
+> gerekir. WhatsApp yolunda tetkik bilgisi ve mesaj WhatsApp üzerinden gider.
 
-## Açık konular
+## İçerik kaynağı (Kasım 2026)
 
-1. **Adres.** Tasarım **No:5** kullanıyor; eski sitede anasayfa "No:7", footer "No:5",
-   KVKK tescil kaydı "No:5/1" yazıyordu. `site.ts` içinde No:5 olarak kodlandı —
-   klinikten teyit alınmalı. (KVKK künyesi tescil kaydına uygun olarak No:5/1 kalıyor.)
-2. **İki e-posta.** Genel `iyitem@iyitem.com`, KVKK künyesinde `iyitem@hotmail.com`.
-   Kurumsal bir KVKK adresi önerilir.
-3. **Sosyal medya bağlantıları** footer'da `#` olarak duruyor — gerçek hesap
-   adresleri [site.ts](src/lib/site.ts) `SOCIAL` içine girilmeli.
-4. **Taslak metinler** (klinik onayı bekliyor): Check-up paket içerikleri, Nasıl
-   Gelmelisiniz hazırlık tablosu, cihaz açıklamaları, hasta yorumları (4 yorumdan
-   3'ü tasarımda yeni yazılmış).
-5. **Online Rapor portalları** hâlâ IP adresine bağlı (`46.196.245.76`), HTTPS yok.
-   Bir alan adı ve sertifika önerilir. Adresler `PORTALS` üzerinden yönetiliyor.
-6. **EN/AR çevirileri.** Bkz. [TRANSLATION-NOTES.md](TRANSLATION-NOTES.md).
+Yenileme tasarımındaki taslak metinler, canlı eski site **www.iyitem.com**
+ile karşılaştırılıp ona göre düzeltildi:
+
+- **Adres** her yerde **No:5**, **e-posta** her yerde **iyitem@iyitem.com**
+  (KVKK aydınlatma metni dahil; klinik onayı, Kasım 2026).
+- **KVKK metni** eski siteyle aynı; eski metindeki kırık
+  `/kisisel-verilerin-korunmasi` adresi, ilgili PDF'lere bağlantıyla değiştirildi.
+- **Check-up:** eski sitede yalnızca dört program adı var (Ekonomik, Standart,
+  Full, VIP) ve "detaylı bilgi için merkezimizi arayın" deniyor. Tasarımdaki
+  uydurma paket içerikleri, süreler ve SSS kaldırıldı.
+- **Nasıl Gelmelisiniz:** eski sitede bu sayfa yok. Hazırlık tablosunda yalnızca
+  eski SSS ve hizmet sayfalarında yazan MR ve HSG hazırlığı kaldı; metro/tramvay
+  tarifi ve "yanınızda getirin" listesi kaynaksız olduğu için çıkarıldı.
+- **Hasta yorumları:** eski sitede tek yorum var (Yıldız Ahmetoğlu); tasarımda
+  yazılan diğer üç yorum kaldırıldı.
+- **Cihaz sayfaları:** eski sitedeki cihaz sayfaları tema demo metniyle doluydu.
+  Gövde, özet ve özellik etiketleri eski sitenin hizmet sayfalarında o cihaz
+  için yazılan cümlelerden kuruldu.
+
+## Notlar
+
+- **Online Rapor portalları** (`46.196.245.76`) İyitem'in değil, PACS sağlayıcısının
+  sorumluluğunda; site yalnızca bağlantı verir. Adresler `PORTALS` üzerinden yönetiliyor.
+- **EN/AR çevirileri** yayında (Kasım 2026'da taslaktan çıkarıldı). Bkz.
+  [TRANSLATION-NOTES.md](TRANSLATION-NOTES.md).
+- **BT cihazının adı** sitedeki haliyle bırakıldı.
 
 ## Yayına alırken
 
-Eski WordPress URL'lerinden 301 yönlendirmesi kurun:
+`public/.htaccess` (Apache / LiteSpeed, Hostinger) şunları yapar:
 
-```
-/department/:slug/   →  /hizmetlerimiz/:slug/
-/online-rapor/       →  /online-hizmetler/online-rapor/
-/hakkimizda/galeri   →  /galeri/
-```
+- `http` ve `www`'suz istekleri `https://www.iyitem.com`'a yönlendirir.
+- Eski WordPress sitemap'indeki **78 adresin tamamını** karşılar: 54'ü yeni
+  sayfasına 301 ile gider (`/department/…` → `/hizmetlerimiz/…`, `/doctor/…` →
+  `/doktorlarimiz/…`, `/services/…` → `/cihazlarimiz/…`, kökteki blog yazıları →
+  `/blog/…`, `/online-randevu/`, `/online-rapor/`, `/kvkk/` …). Temanın demo
+  içerikleri (`/events/…`, `/cms-header-top/…`) 410 döner.
+- `/wp-content/uploads/…` görsellerini ve PDF'lerini `/media/…` altındaki
+  karşılıklarına yönlendirir.
+- Google Search Console doğrulaması için `google3c596ada7e66641b.html` korunur.
+
+Hosting Netlify ya da Cloudflare Pages olursa bu kuralların `_redirects`
+dosyasına çevrilmesi gerekir.

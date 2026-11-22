@@ -7,8 +7,8 @@ cover: "/assets/svc-defekografi.webp"
 date: "2020-01-10"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "الأشعة السينية"
 summary: "فحص بالتنظير الفلوري لقاع الحوض ووظيفة التغوّط."
 ---
 <p><strong>بعد الحقنة الشرجية تُحقن عبر المستقيم مادة تباين محضّرة خصيصًا بقوام شبيه بالبراز، ويُصوَّر المريض بجهاز أشعة رقمي مزوّد بالتنظير الفلوري أثناء إخراجها في وضعية الجلوس. ويعطي الفحص معلومات عن تشريح العضو ووظيفته معًا.</strong></p>

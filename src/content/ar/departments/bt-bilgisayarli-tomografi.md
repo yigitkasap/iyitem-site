@@ -7,8 +7,8 @@ cover: "/assets/svc-bt.webp"
 date: "2020-01-02"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kesitsel görüntüleme"
+draftTranslation: false
+category: "التصوير المقطعي"
 summary: "مسح سريع بجرعة منخفضة بجهاز جنرال إلكتريك ريفولوشن ماكسيما بـ128 شريحة."
 ---
 <p><strong>يتكوّن جهاز التصوير المقطعي المحوسب من وحدة أشعة سينية حلقية الشكل وطاولة متحركة للمريض. وتُلتقط أثناء الفحص صور مقطعية للأعضاء أو العظام أو الأنسجة من زوايا مختلفة، ثم يجمع الحاسوب هذه المقاطع في صورة ثلاثية الأبعاد.</strong></p>

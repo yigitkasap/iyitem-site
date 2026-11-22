@@ -1,7 +1,6 @@
 ---
 import PageHero from '../PageHero.astro';
 import ContactForm from '../ContactForm.astro';
-import Steps from '../Steps.astro';
 import { CONTACT, type Locale } from '@/lib/site';
 import { useTranslations } from '@/i18n/ui';
 import { FEEDBACK_PAGE, pick } from '@/i18n/copy-pages';
@@ -29,7 +28,7 @@ const copy = pick(FEEDBACK_PAGE, locale);
       <!-- Kind + satisfaction selectors feed hidden inputs on the shared form. -->
       <div class="flex flex-col gap-5 rounded-[18px] border border-line bg-white p-6 sm:p-8">
         <div class="flex flex-col gap-2.5">
-          <span class="field-label">Geri bildirim türü</span>
+          <span class="field-label">{t('feedback.kind')}</span>
           <div class="flex flex-wrap gap-2" data-kind-group>
             {
               copy.kinds.map((k, i) => (
@@ -52,7 +51,7 @@ const copy = pick(FEEDBACK_PAGE, locale);
         </div>
 
         <div class="flex flex-col gap-2.5">
-          <span class="field-label">Memnuniyetiniz</span>
+          <span class="field-label">{t('feedback.satisfaction')}</span>
           <div class="flex flex-wrap gap-2" data-score-group>
             {
               [1, 2, 3, 4, 5].map((n) => (
@@ -71,7 +70,7 @@ const copy = pick(FEEDBACK_PAGE, locale);
         </div>
 
         <label class="field-label">
-          İlgili birim
+          {t('feedback.unit')}
           <select name="unit" form="feedback-form" class="field">
             {copy.units.map((u) => <option>{u}</option>)}
           </select>
