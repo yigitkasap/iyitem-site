@@ -100,7 +100,7 @@ const suggestions = t('search.suggestions').split('|');
 
 <section class="bg-surface-2 py-14">
   <div class="shell flex flex-col gap-3.5">
-    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]" data-search-results></div>
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))]" data-search-results></div>
 
     <div hidden data-search-empty class="flex flex-col items-start gap-3 rounded-[18px] border border-line bg-white p-8">
       <span class="text-[18px] font-bold">{t('search.noResults')}</span>

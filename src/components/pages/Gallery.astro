@@ -53,7 +53,7 @@ const categories = [...new Set(copy.photos.map((p) => p.cat))];
       </span>
     </div>
 
-    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(270px,1fr))]">
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr))]">
       {
         copy.photos.map((p, i) => (
           <button

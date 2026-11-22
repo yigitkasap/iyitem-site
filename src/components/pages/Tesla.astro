@@ -40,7 +40,7 @@ const copy = pick(TESLA_PAGE, locale);
 <FactStrip facts={copy.facts} />
 
 <!-- Why 3 Tesla -->
-<section class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+<section class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
   <div class="flex min-w-0 flex-col gap-4">
     <span class="mono-label text-brand">3 Tesla</span>
     <h2 class="h2">{copy.whyTitle}</h2>
@@ -61,7 +61,7 @@ const copy = pick(TESLA_PAGE, locale);
 <section class="bg-surface py-16">
   <div class="shell flex flex-col gap-7">
     <h2 class="h2">{copy.advancedTitle}</h2>
-    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(260px,1fr))]">
+    <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr))]">
       {
         copy.advanced.map((a) => (
           <div class="reveal lift flex flex-col gap-2 rounded-[14px] border border-line bg-white p-5">
@@ -75,7 +75,7 @@ const copy = pick(TESLA_PAGE, locale);
 </section>
 
 <!-- Comfort + flow -->
-<section class="shell grid gap-6 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+<section class="shell grid gap-6 py-16 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
   <div class="flex flex-col gap-4 rounded-[18px] bg-ink p-8 text-white">
     <span class="mono-label text-hero-tag">{copy.comfortTitle}</span>
     <p class="text-[15.5px] leading-[1.7] text-white/80">{copy.comfortBody}</p>

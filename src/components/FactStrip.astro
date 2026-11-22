@@ -10,7 +10,7 @@ const { facts, tone = 'surface', class: className = '' } = Astro.props;
 ---
 
 <section class:list={[tone === 'surface' ? 'bg-surface' : 'bg-white', className]}>
-  <div class="shell grid gap-x-6 gap-y-8 py-12 [grid-template-columns:repeat(auto-fit,minmax(170px,1fr))]">
+  <div class="shell grid gap-x-6 gap-y-8 py-12 [grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr))]">
     {
       facts.map((f) => (
         <div class="reveal flex flex-col gap-1.5">

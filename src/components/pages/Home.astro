@@ -38,7 +38,7 @@ const cardShell =
 
 <!-- Shortcut cards, riding over the hero -->
 <section class="shell -translate-y-10">
-  <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(215px,1fr))]">
+  <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(min(215px,100%),1fr))]">
     {
       SHORTCUTS.map((s) => (
         <a
@@ -77,14 +77,14 @@ const cardShell =
 
 <!-- About split -->
 <section
-  class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]"
+  class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]"
 >
   <div class="flex min-w-0 flex-col gap-4">
     <span class="mono-label text-brand">{t('nav.about')}</span>
     <h2 class="h2">{copy.about.title}</h2>
     <p class="text-[16.5px] leading-[1.7] text-body">{copy.about.body}</p>
 
-    <div class="grid gap-3.5 pt-1.5 [grid-template-columns:repeat(auto-fit,minmax(120px,1fr))]">
+    <div class="grid gap-3.5 pt-1.5 [grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr))]">
       {
         copy.about.stats.map((stat) => (
           <div class="flex flex-col">
@@ -130,7 +130,7 @@ const cardShell =
       </a>
     </div>
 
-    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fill,minmax(265px,1fr))]">
+    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fill,minmax(min(265px,100%),1fr))]">
       {
         featured.map((s) => (
           <a href={localePath(locale, `/hizmetlerimiz/${splitId(s.id).slug}/`)} class={cardShell}>
@@ -164,7 +164,7 @@ const cardShell =
     <p class="text-[16.5px] leading-[1.7] text-body">{copy.doctors.body}</p>
   </div>
 
-  <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(255px,1fr))]">
+  <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(min(255px,100%),1fr))]">
     {
       doctors.map((d) => (
         <div class="flex flex-col overflow-hidden rounded-[14px] border border-line bg-white">
@@ -210,7 +210,7 @@ const cardShell =
 
 <!-- Testimonials -->
 <section class="bg-surface py-[60px]">
-  <div class="shell grid items-center gap-11 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+  <div class="shell grid items-center gap-11 [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))]">
     <img
       src="/assets/testimonial.webp"
       alt=""

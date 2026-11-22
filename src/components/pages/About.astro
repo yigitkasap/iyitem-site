@@ -41,7 +41,7 @@ const mission = section('Misyonumuz') || section('Our Mission') || section('رس
 <FactStrip facts={copy.facts} />
 
 <!-- Trusted service split -->
-<section id="guvenilir-hizmet" class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+<section id="guvenilir-hizmet" class="shell grid items-center gap-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
   <div class="flex min-w-0 flex-col gap-4">
     <span class="mono-label text-brand">{t('nav.trustedService')}</span>
     {page?.data.draftTranslation && <TranslationNotice locale={locale} />}
@@ -62,7 +62,7 @@ const mission = section('Misyonumuz') || section('Our Mission') || section('رس
 <section id="ilkelerimiz" class="bg-surface py-16">
   <div class="shell flex flex-col gap-7">
     <h2 class="h2">{copy.principlesTitle}</h2>
-    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
+    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr))]">
       {
         copy.principles.map((p) => (
           <div class="reveal lift flex gap-4 rounded-[16px] border border-line bg-white p-6">
@@ -78,7 +78,7 @@ const mission = section('Misyonumuz') || section('Our Mission') || section('رس
 </section>
 
 <!-- Vision & mission -->
-<section id="vizyon-misyon" class="shell grid gap-6 py-16 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]">
+<section id="vizyon-misyon" class="shell grid gap-6 py-16 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
   <div class="flex flex-col gap-4 rounded-[18px] bg-ink p-8 text-white">
     <span class="mono-label text-hero-tag">{locale === 'tr' ? 'Vizyonumuz' : 'Vision'}</span>
     <div class="prose-iyitem [&_*]:text-white/80" set:html={vision} />

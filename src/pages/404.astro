@@ -32,7 +32,7 @@ const links = pick(NOTFOUND_LINKS, locale);
   </section>
 
   <section class="bg-surface py-14">
-    <div class="shell grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+    <div class="shell grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))]">
       {
         links.map((l) => (
           <a

@@ -45,7 +45,7 @@ const copy = pick(CHECKUP_PAGE, locale);
       <p class="text-[16px] leading-[1.7] text-body">{copy.intro}</p>
     </div>
 
-    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
+    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr))]">
       {
         copy.packages.map((p) => (
           <article class="reveal lift flex flex-col gap-5 rounded-[18px] border border-line bg-white p-7">

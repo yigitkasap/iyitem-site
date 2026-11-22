@@ -67,7 +67,7 @@ const kvkkBody = splitFaq(kvkk?.body).body;
       <div id="panel-rights" role="tabpanel" aria-labelledby="tab-rights" class="flex flex-col gap-6">
         {rights?.data.draftTranslation && <TranslationNotice locale={locale} />}
 
-        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
+        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))]">
           {
             cards.map((c) => (
               <div class="reveal flex flex-col gap-2.5 rounded-[16px] border border-line bg-white p-6">
@@ -101,7 +101,7 @@ const kvkkBody = splitFaq(kvkk?.body).body;
           <div class="prose-iyitem" set:html={kvkkBody} />
         </div>
 
-        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+        <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))]">
           {
             copy.docs.map((d) => (
               <a

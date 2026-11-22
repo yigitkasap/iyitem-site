@@ -59,7 +59,7 @@ const categories = [...new Set(departments.map((d) => d.data.category).filter(Bo
     </div>
 
     <!-- Cards -->
-    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fill,minmax(280px,1fr))]">
+    <div class="grid gap-[18px] [grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr))]">
       {
         departments.map((s) => (
           <a
@@ -95,7 +95,7 @@ const categories = [...new Set(departments.map((d) => d.data.category).filter(Bo
 
 <!-- Why İyitem -->
 <section class="shell py-16">
-  <div class="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+  <div class="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))]">
     {
       copy.reasons.map((r) => (
         <div class="reveal lift flex flex-col gap-3 rounded-[16px] border border-line bg-white p-6">
