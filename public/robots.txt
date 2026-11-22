@@ -1,0 +1,5 @@
+# The search page carries noindex itself; it is not blocked here so crawlers can see that.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.iyitem.com/sitemap-index.xml

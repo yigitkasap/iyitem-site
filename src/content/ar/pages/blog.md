@@ -7,6 +7,6 @@ cover: ""
 date: "2020-10-01"
 order: 4
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 ---
 

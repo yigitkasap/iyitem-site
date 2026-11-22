@@ -25,17 +25,17 @@ export const CONTACT = {
   whatsappHref: 'https://wa.me/905302377559',
   /**
    * The old site disagreed with itself (homepage "No:7", footer "No:5", KVKK
-   * registry "No:5/1"). The redesign standardised on No:5 — still pending
-   * confirmation from the clinic.
+   * notice "No:5/1"). Confirmed by the clinic in November 2026: No:5, used
+   * everywhere including the KVKK notice.
    */
   addressLine: 'Dr. Adnan Adıvar Cad. No:5',
   addressCity: 'Haseki, 34096 Fatih / İstanbul',
   addressShort: 'Dr. Adnan Adıvar Cad. No:5, Haseki · Fatih / İstanbul',
-  hours: 'Hafta içi 08:00–19:00 · Cumartesi 09:00–17:00',
+  /** Day names and "closed" are UI keys (hours.*) so every locale gets its own. */
   hoursRows: [
-    { day: 'Pazartesi – Cuma', time: '08:00 – 19:00' },
-    { day: 'Cumartesi', time: '09:00 – 17:00' },
-    { day: 'Pazar', time: 'Kapalı' },
+    { day: 'hours.weekdays', time: '08:00 – 19:00' },
+    { day: 'hours.saturday', time: '09:00 – 17:00' },
+    { day: 'hours.sunday', time: 'hours.closed' },
   ],
   mapsQuery: 'Dr. Adnan Adıvar Cad. No:5 Haseki Fatih İstanbul',
 } as const;
@@ -64,6 +64,7 @@ export const BRANDS = [
   'Siemens 3T Vida',
   'GE Revolution 128',
   'Canon i800',
+  'Siemens Acuson Sequoia',
   'Fuji Amulet',
   'Kavo OP 300',
   'DMS Stratos',
@@ -142,14 +143,17 @@ export const SHORTCUTS = [
   { key: 'location', icon: 'map-pin', color: 'var(--color-accent-blue)', href: '/iletisim/' },
 ] as const;
 
-/** Options offered by every appointment form's "which scan?" select. */
+/**
+ * Options offered by every appointment form's "which scan?" select. Labels are
+ * UI keys; `slugs` lets a service detail page pre-select its own scan.
+ */
 export const SCAN_OPTIONS = [
-  'MR (Manyetik Rezonans)',
-  'BT (Bilgisayarlı Tomografi)',
-  'Renkli Doppler Ultrasonografi',
-  'Dijital Mamografi',
-  'Dijital Röntgen',
-  'Dental Tomografi / Panoramik',
-  'Kemik Dansitometri',
-  'Check-up / Emin değilim',
+  { key: 'scan.mr', slugs: ['mr-manyetik-rezonans-goruntuleme', 'kilolu-hastada-mr-goruntuleme'] },
+  { key: 'scan.ct', slugs: ['bt-bilgisayarli-tomografi'] },
+  { key: 'scan.doppler', slugs: ['doppler-ultrasonografi'] },
+  { key: 'scan.mammo', slugs: ['dijital-mamografi'] },
+  { key: 'scan.xray', slugs: ['dijital-rontgen', 'hsg-histerosalpingografi', 'skolyoz-grafisi', 'boy-grafisi-ortorontgenogram', 'defekografi'] },
+  { key: 'scan.dental', slugs: ['dental-tomografi-ve-panoramik-rontgen'] },
+  { key: 'scan.dexa', slugs: ['kemik-dansitometri'] },
+  { key: 'scan.other', slugs: ['check-up', 'girisimsel-radyoloji', 'hizmet-listemiz'] },
 ] as const;

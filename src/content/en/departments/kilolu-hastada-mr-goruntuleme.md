@@ -7,8 +7,8 @@ cover: "/assets/svc-kilolu.webp"
 date: "2020-01-11"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kesitsel görüntüleme"
+draftTranslation: false
+category: "Cross-sectional imaging"
 summary: "A comfortable scan, with a wide bore and a high table capacity."
 ---
 <p><strong>The radio waves used in MRI can penetrate a large amount of fat. Compared with other imaging methods, MRI is the one least affected by obesity. Bore diameter, bore length, table weight limits and magnetic field strength all matter in making MRI possible for patients with a higher body weight.</strong></p>

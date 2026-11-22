@@ -7,8 +7,8 @@ cover: "/assets/svc-dental.webp"
 date: "2020-01-04"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "3D dental CT and panoramic imaging with the KaVo OP 300."
 ---
 <p><strong>Our dental CT and panoramic X-ray system is a KAVO three-dimensional cone-beam volumetric dental CT scanner. Resolving down to 85 microns per voxel over a 5×5 cm field and allowing 3D endodontic assessment, it lets us — together with our experienced technicians — provide detailed, reliable information, particularly to dentists placing implants.</strong></p>

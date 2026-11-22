@@ -7,7 +7,7 @@ cover: "/media/2023/10/call-center-iyitem.webp"
 date: "2022-09-24"
 order: 0
 appointmentForm: true
-draftTranslation: true
+draftTranslation: false
 ---
 <figure><img src="/media/2023/10/call-center-iyitem.webp" alt="" /></figure>
 

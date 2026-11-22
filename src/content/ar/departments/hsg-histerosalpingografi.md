@@ -7,8 +7,8 @@ cover: "/assets/svc-hsg.webp"
 date: "2020-01-08"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kadın sağlığı"
+draftTranslation: false
+category: "صحة المرأة"
 summary: "فحص بالتنظير الفلوري لتقييم الرحم وقناتي فالوب."
 ---
 <p><strong>تصوير الرحم والبوقين (HSG) طريقة تصوير لفحص الرحم وقناتي فالوب. وهو فحص بالأشعة السينية يُجرى لتقييم حالة قناتي فالوب — وهما الطريق الذي يلتقي فيه الحيوان المنوي بالبويضة — وحالة تجويف الرحم الذي يقضي فيه الجنين نحو تسعة أشهر.</strong></p>

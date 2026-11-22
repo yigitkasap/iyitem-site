@@ -7,9 +7,11 @@ cover: "/assets/dev-kemik.webp"
 date: "2020-01-07"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "Stratos — lumbar, femoral and whole-body bone density measurement."
+summary: "DMS — standard, whole-body, radial and paediatric bone density measurement."
 brand: "DMS"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Loss of bone density is a significant health problem today, especially in post-menopausal women and the elderly.</p>
+
+<p>With our DMS bone densitometry system we perform whole-body, radial and paediatric bone density measurements in addition to the standard measurement.</p>

@@ -7,7 +7,7 @@ cover: "/media/2020/10/Layer-45.webp"
 date: "2020-10-01"
 order: 5
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 gallery:
   - "/media/2020/10/Layer-45.webp"
   - "/media/2020/10/0532.webp"

@@ -7,7 +7,7 @@ cover: ""
 date: "2022-09-19"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 ---
 <h4>Access to services in general</h4>
 

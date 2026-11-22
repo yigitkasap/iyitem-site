@@ -7,9 +7,11 @@ cover: "/assets/dev-kemik.webp"
 date: "2020-01-07"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "ستراتوس — قياس كثافة العظام القطنية والفخذية وللجسم بالكامل."
+summary: "DMS — قياس كثافة العظام القياسي وللجسم كاملًا والساعد ولدى الأطفال."
 brand: "DMS"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>يُعدّ فقدان كثافة العظام اليوم مشكلة صحية مهمة، ولا سيما لدى النساء بعد انقطاع الطمث وكبار السن.</p>
+
+<p>نُجري بجهاز DMS لقياس كثافة العظام، إلى جانب القياس القياسي، قياس كثافة عظام الجسم كاملًا وعظم الساعد وقياس كثافة العظام لدى الأطفال.</p>

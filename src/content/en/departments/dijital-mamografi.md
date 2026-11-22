@@ -7,8 +7,8 @@ cover: "/assets/svc-mamografi.webp"
 date: "2020-01-06"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kadın sağlığı"
+draftTranslation: false
+category: "Women’s health"
 summary: "Low-dose, high-resolution breast screening with the Fuji Amulet."
 ---
 <p><strong>Digital mammography is a health screening recommended annually for women from their forties onwards. A digital image is taken of the breast, positioned between two dedicated plates. This examination takes a few minutes and can provide the early diagnosis that saves lives.</strong></p>

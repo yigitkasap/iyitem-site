@@ -7,8 +7,8 @@ cover: "/assets/svc-boy.webp"
 date: "2020-01-10"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "Measurement of leg length discrepancy and alignment."
 ---
 <p><strong>This is an X-ray that allows all the bony structures of both lower limbs — from hip to foot — to be assessed in a single image. As with the scoliosis X-ray, it is produced by taking three or four images and joining them together.</strong></p>

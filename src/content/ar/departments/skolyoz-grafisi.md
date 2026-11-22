@@ -7,8 +7,8 @@ cover: "/assets/svc-skolyoz.webp"
 date: "2020-01-09"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "الأشعة السينية"
 summary: "تقييم العمود الفقري بصورة واحدة مع تقرير يتضمّن قياسات الزوايا."
 ---
 <p><strong>تصوير الجنف تقنية لتصوير الانحناءات في منطقتي الظهر وأسفل الظهر. وتُلتقط فيه صور أمامية-خلفية وجانبية بشكل معياري. ويُحدّد الفحص وجود الانحناء من عدمه، كما يُحدّد درجة الجنف عبر القياسات التي تُجرى على الصور.</strong></p>

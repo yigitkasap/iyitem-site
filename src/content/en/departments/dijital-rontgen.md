@@ -7,8 +7,8 @@ cover: "/assets/svc-rontgen.webp"
 date: "2020-01-05"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "X-ray"
 summary: "Instant digital images with the GMM Opera T fluoroscopy system."
 ---
 <p><strong>Digital X-ray supports examinations such as HSG (hysterosalpingography, or uterine imaging), orthoroentgenography (full-length leg imaging) and its measurements, oesophagus – stomach – duodenum studies, enteroclysis (double-contrast small bowel imaging), double-contrast large bowel (colon) imaging, voiding cystourethrography and retrograde urethrography.</strong></p>

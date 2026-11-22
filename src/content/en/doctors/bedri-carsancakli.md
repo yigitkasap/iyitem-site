@@ -8,7 +8,7 @@ date: "2020-10-27"
 order: 1
 appointmentForm: false
 specialty: "Radiology Specialist"
-draftTranslation: true
+draftTranslation: false
 education: "Cerrahpaşa Faculty of Medicine, Radiology (1996) · İstanbul Faculty of Medicine (1992)"
 interests: "Neuroradiology · Gastrointestinal radiology · Musculoskeletal"
 ---

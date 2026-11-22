@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "128 kesit Revolution Maxima — düşük doz koroner ve tüm vücut anjiyografi."
+summary: "128 kesit Revolution Maxima — düşük doz koroner ve tüm vücut BT anjiyografi."
 brand: "General Electric"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>128 kesit (multislice) GE Revolution Maxima bilgisayarlı tomografi cihazımızla düşük dozda koroner BT anjiyografi ve tüm vücut BT anjiyografi çekimleri yapıyoruz.</p>
+
+<p>Cihazımızla 4–5 saniyede kalp anjiyosu, sanal kolonoskopi ve QCT kemik yoğunluğu ölçümü yapılabilmektedir. Kalın bağırsak taraması, kolonoskopiye gerek kalmadan sanal kolonoskopi ile yapılabilir.</p>

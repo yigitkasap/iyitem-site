@@ -8,7 +8,7 @@ date: "2020-10-27"
 order: 2
 appointmentForm: false
 specialty: "أخصائي الأشعة"
-draftTranslation: true
+draftTranslation: false
 education: "جامعة سلجوق، الأشعة (2000) · كلية الطب، جامعة أولوداغ (1995)"
 interests: "أشعة الجهاز العضلي الهيكلي · أشعة الجهاز العصبي"
 ---

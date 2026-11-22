@@ -7,6 +7,6 @@ cover: ""
 date: "2020-11-10"
 order: 2
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 ---
 <h6><strong>For All Your Imaging Needs</strong></h6><h1><strong>Comprehensive, High-Quality Solutions</strong></h1>

@@ -7,8 +7,8 @@ cover: "/assets/svc-doppler.webp"
 date: "2020-01-03"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Ultrason"
+draftTranslation: false
+category: "Ultrasound"
 summary: "Vascular, thyroid, abdominal and musculoskeletal assessment with the Canon i800."
 ---
 <p><strong>A colour Doppler ultrasound system consists of a main computer, a console, a screen and probes. The colour Doppler function shows the speed and pattern of blood flowing through the vessels in colour.</strong></p>

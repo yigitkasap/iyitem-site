@@ -1,0 +1,85 @@
+# iyitem.com — Apache / LiteSpeed (Hostinger)
+#
+# 301 redirects from the old WordPress site (www.iyitem.com, theme "medisch")
+# to the new static site. The old URL list was taken from the live
+# wp-sitemap.xml in November 2026. The old /en/ and /ar/ sub-sites were broken
+# (WordPress error page), but their URLs are mapped too, in case any were
+# indexed.
+
+ErrorDocument 404 /404.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ---- canonical host: https://www.iyitem.com -------------------------------
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.iyitem.com%{REQUEST_URI} [L,R=301]
+
+# ---- WordPress internals: gone for good ------------------------------------
+RewriteRule ^(wp-admin|wp-includes|wp-json)(/.*)?$ - [G,L]
+RewriteRule ^(wp-login\.php|xmlrpc\.php|wp-cron\.php)$ - [G,L]
+RewriteRule ^((en|ar)/)?(comments/)?feed/?$ / [R=301,L]
+
+# Theme demo content that was never part of the clinic's site.
+RewriteRule ^((en|ar)/)?(events|events_category|cms-footer|cms-header-top|cms-service|cms-portfolio)(/.*)?$ - [G,L]
+
+# ---- uploads: PDFs and images moved to /media/ -----------------------------
+RewriteCond %{DOCUMENT_ROOT}/media/$1.pdf -f
+RewriteRule ^wp-content/uploads/(.+)\.pdf$ /media/$1.pdf [R=301,L]
+
+# Images were re-encoded as WebP under the same year/month path.
+RewriteCond %{DOCUMENT_ROOT}/media/$1.webp -f
+RewriteRule ^wp-content/uploads/(.+)\.(png|jpe?g|webp)$ /media/$1.webp [R=301,L,NC]
+
+RewriteRule ^wp-content/ - [G,L]
+
+# ---- Google Search Console verification (old WordPress page URL) ----------
+RewriteRule ^google3c596ada7e66641b-html/?$ /google3c596ada7e66641b.html [R=301,L]
+
+# ---- services: /department/<slug>/ → /hizmetlerimiz/<slug>/ ---------------
+RewriteRule ^((en|ar)/)?department/check-up/?$ /$1check-up/ [R=301,L]
+RewriteRule ^((en|ar)/)?department/([^/]+)/?$ /$1hizmetlerimiz/$3/ [R=301,L]
+RewriteRule ^((en|ar)/)?department/?$ /$1hizmetlerimiz/ [R=301,L]
+RewriteRule ^((en|ar)/)?department-category(/.*)?$ /$1hizmetlerimiz/ [R=301,L]
+
+# ---- doctors: /doctor/<slug>/ → /doktorlarimiz/<slug>/ ---------------------
+RewriteRule ^((en|ar)/)?doctor/([^/]+)/?$ /$1doktorlarimiz/$3/ [R=301,L]
+RewriteRule ^((en|ar)/)?doctor/?$ /$1doktorlarimiz/ [R=301,L]
+RewriteRule ^((en|ar)/)?doctor-category(/.*)?$ /$1doktorlarimiz/ [R=301,L]
+
+# ---- devices: /services/<slug>/ → /cihazlarimiz/<slug>/ --------------------
+RewriteRule ^((en|ar)/)?services/([^/]+)/?$ /$1cihazlarimiz/$3/ [R=301,L]
+RewriteRule ^((en|ar)/)?services/?$ /$1cihazlarimiz/ [R=301,L]
+
+# ---- blog posts lived at the site root -------------------------------------
+RewriteRule ^((en|ar)/)?(3-tesla-mr-ile-15-tesla-mr-arasindaki-fark-nedir|3-tesla-mr-ile-iki-yillik-deneyim|baskili-mr)/?$ /$1blog/$3/ [R=301,L]
+RewriteRule ^((en|ar)/)?(kategori|etiket|author)(/.*)?$ /$1blog/ [R=301,L]
+
+# ---- pages that moved ------------------------------------------------------
+RewriteRule ^((en|ar)/)?online-randevu/?$ /$1iletisim/#randevu [R=301,NE,L]
+RewriteRule ^((en|ar)/)?online-rapor/?$ /$1online-hizmetler/online-rapor/ [R=301,L]
+RewriteRule ^((en|ar)/)?online-hizmetler/?$ /$1online-hizmetler/online-rapor/ [R=301,L]
+RewriteRule ^((en|ar)/)?(kvkk|kisisel-verilerin-korunmasi)/?$ /$1hasta-haklari/#kvkk [R=301,NE,L]
+RewriteRule ^((en|ar)/)?hakkimizda/galeri/?$ /$1galeri/ [R=301,L]
+RewriteRule ^((en|ar)/)?hakkimizda/sikca-sorulan-sorular/?$ /$1sikca-sorulan-sorular/ [R=301,L]
+RewriteRule ^index\.php$ / [R=301,L]
+
+# ---- trailing slash: /iletisim → /iletisim/ when that folder exists --------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+</IfModule>
+
+# ---- caching ---------------------------------------------------------------
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType image/webp "access plus 1 month"
+ExpiresByType image/png "access plus 1 month"
+ExpiresByType image/svg+xml "access plus 1 month"
+ExpiresByType application/pdf "access plus 1 month"
+</IfModule>

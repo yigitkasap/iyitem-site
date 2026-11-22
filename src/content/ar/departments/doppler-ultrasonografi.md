@@ -7,8 +7,8 @@ cover: "/assets/svc-doppler.webp"
 date: "2020-01-03"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Ultrason"
+draftTranslation: false
+category: "الموجات فوق الصوتية"
 summary: "تقييم الأوعية والغدة الدرقية والبطن والجهاز العضلي الهيكلي بجهاز كانون i800."
 ---
 <p><strong>يتألف جهاز دوبلر الملوّن بالموجات فوق الصوتية من حاسوب رئيسي ووحدة تحكّم وشاشة ومجسّات. وتُظهر خاصية الدوبلر الملوّن سرعة الدم المتدفق في الأوعية ونمط جريانه بالألوان.</strong></p>

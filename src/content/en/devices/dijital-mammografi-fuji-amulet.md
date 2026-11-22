@@ -7,9 +7,11 @@ cover: "/assets/dev-mamografi.webp"
 date: "2020-01-06"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "Amulet — direct-conversion digital mammography for low-dose screening."
+summary: "Fuji Amulet — low-dose digital mammography."
 brand: "Fujifilm"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Digital mammography examines the breast using a low dose of X-rays and is used for breast cancer screening and early diagnosis. It is a screening examination women are advised to have every year from their forties.</p>
+
+<p>Reading digital mammograms on 5-megapixel medical displays, and the experience of the radiologist, both matter.</p>

@@ -4,10 +4,9 @@ import { CONTACT, type Locale } from '@/lib/site';
 import { useTranslations } from '@/i18n/ui';
 
 /**
- * Desktop-only floating actions: WhatsApp bottom-start, back-to-top bottom-end.
- *
- * Both are hidden below 900px, where the fixed MobileBar already offers call,
- * WhatsApp and booking — two overlapping bars would fight for the same corner.
+ * Floating actions: WhatsApp bottom-start (desktop only — the MobileBar has it
+ * below 900px) and back-to-top bottom-end. On phones back-to-top sits above
+ * the MobileBar instead of on top of it.
  */
 interface Props {
   locale: Locale;
@@ -41,7 +40,7 @@ const t = useTranslations(locale);
   id="to-top"
   hidden
   aria-label={t('cta.backToTop')}
-  class="fixed bottom-6 end-6 z-40 h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-line-form bg-white text-ink shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:bg-brand hover:text-white [@media(min-width:900px)]:flex"
+  class="fixed bottom-[calc(68px+env(safe-area-inset-bottom))] end-4 z-40 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-line-form bg-white text-ink shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:bg-brand hover:text-white [@media(min-width:900px)]:bottom-6 [@media(min-width:900px)]:end-6 [@media(min-width:900px)]:h-12 [@media(min-width:900px)]:w-12"
 >
   <Icon name="arrowUp" size={20} />
 </button>
@@ -50,7 +49,7 @@ const t = useTranslations(locale);
   const button = document.getElementById('to-top') as HTMLButtonElement | null;
 
   if (button) {
-    // `hidden` also has to clear the flex display the class sets at ≥900px.
+    // `hidden` alone loses to the `flex` class, so display is set explicitly.
     const show = (on: boolean) => {
       button.hidden = !on;
       button.style.display = on ? '' : 'none';

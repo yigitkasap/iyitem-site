@@ -2,7 +2,7 @@
 import PageHero from '../PageHero.astro';
 import Icon from '../Icon.astro';
 import { CONTACT, MAPS_EMBED, MAPS_LINK, SITE, localePath, type Locale } from '@/lib/site';
-import { useTranslations } from '@/i18n/ui';
+import { useTranslations, type UIKey } from '@/i18n/ui';
 import { DIRECTIONS_PAGE, pick } from '@/i18n/copy-pages';
 
 interface Props {
@@ -13,12 +13,6 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 const copy = pick(DIRECTIONS_PAGE, locale);
 
-const icons: Record<string, string> = {
-  Metro: 'train',
-  Tramvay: 'tram',
-  Otobüs: 'bus',
-  'Özel araç': 'car',
-};
 ---
 
 <PageHero
@@ -58,19 +52,6 @@ const icons: Record<string, string> = {
         </div>
       </div>
 
-      <!-- Routes -->
-      <div class="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
-        {
-          copy.routes.map((r) => (
-            <div class="reveal lift flex flex-col gap-2.5 rounded-[16px] border border-line bg-white p-6">
-              <Icon name={icons[r.mode] ?? 'map-pin'} size={22} class="text-brand" />
-              <span class="mono-meta text-muted">{r.mode}</span>
-              <span class="text-[16.5px] font-bold leading-[1.3]">{r.title}</span>
-              <p class="text-[14px] leading-[1.6] text-secondary">{r.text}</p>
-            </div>
-          ))
-        }
-      </div>
 
       <!-- Preparation -->
       <div class="flex flex-col gap-4 rounded-[18px] border border-line bg-white p-6 sm:p-8">
@@ -85,31 +66,19 @@ const icons: Record<string, string> = {
             ))
           }
         </ul>
+        <p class="text-[14px] leading-[1.6] text-secondary">{copy.prepNote}</p>
       </div>
     </div>
 
     <aside class="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
-      <div class="flex flex-col gap-3 rounded-[16px] border border-line bg-white p-6">
-        <span class="mono-meta text-muted">{copy.bringTitle}</span>
-        <ul class="flex flex-col gap-2.5">
-          {
-            copy.bring.map((b) => (
-              <li class="flex items-start gap-2.5 text-[14px] leading-[1.5] text-body">
-                <Icon name="check" size={16} class="mt-0.5 shrink-0 text-brand" />
-                <span>{b}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
 
       <div class="flex flex-col gap-2 rounded-[16px] border border-line bg-white p-6">
         <span class="mono-meta text-muted">{t('label.hours')}</span>
         {
           CONTACT.hoursRows.map((row) => (
             <div class="flex justify-between gap-4 border-b border-line-soft py-2 text-[14px] last:border-0">
-              <span class="text-body">{row.day}</span>
-              <span class="font-bold">{row.time}</span>
+              <span class="text-body">{t(row.day)}</span>
+              <span class="font-bold">{row.time.startsWith('hours.') ? t(row.time as UIKey) : row.time}</span>
             </div>
           ))
         }

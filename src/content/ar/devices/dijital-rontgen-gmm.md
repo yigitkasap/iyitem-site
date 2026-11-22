@@ -7,9 +7,11 @@ cover: "/assets/dev-rontgen.webp"
 date: "2020-01-05"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "أوبرا T — أشعة رقمية مع تنظير فلوري وكاشف مسطّح بدقة 9 ميغابكسل."
+summary: "GMM Opera T — أشعة سينية رقمية مع تنظير فلوري."
 brand: "GMM"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>نستخدم في مركزنا جهاز الأشعة السينية الرقمية GMM Opera T المزوّد بالتنظير الفلوري. وتُعطى جرعات منخفضة جدًا أثناء المتابعة الحية بالتنظير الفلوري.</p>
+
+<p>يمكن التقاط صور الجنف وصور الطول الكامل بدقة وبأدنى جرعة إشعاع باستخدام الأشعة الرقمية وتقنية الدمج (stitching).</p>

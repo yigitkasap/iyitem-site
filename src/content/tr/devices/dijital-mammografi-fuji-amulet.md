@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "Amulet — doğrudan dönüşümlü dijital mamografi, düşük doz tarama."
+summary: "Fuji Amulet — düşük doz dijital mamografi."
 brand: "Fujifilm"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Dijital mamografi, düşük dozda X ışını kullanılarak memenin incelendiği bir görüntüleme yöntemidir; meme kanseri taramasında ve erken teşhisinde kullanılır. Kırklı yaşlardan itibaren kadınların her yıl yaptırması tavsiye edilen bir sağlık taramasıdır.</p>
+
+<p>Dijital mamografi görüntülerinin 5 megapiksel tıbbi ekranlarda değerlendirilmesi ve radyoloğun tecrübesi önemlidir.</p>

@@ -7,6 +7,6 @@ cover: "/assets/blog-1.webp"
 date: "2025-11-01"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 summary: "لمرضى آلام الظهر الذين لا تفسّر نتائج الرنين الاعتيادي أعراضهم: فحص يُجرى والعمود الفقري محمّل كما لو كان المريض واقفًا."
 ---

@@ -7,8 +7,8 @@ cover: "/assets/svc-girisimsel.webp"
 date: "2020-01-13"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Girişimsel"
+draftTranslation: false
+category: "Interventional"
 summary: "Image-guided biopsy and treatment procedures."
 ---
 <p><strong>Interventional radiology covers diagnostic and therapeutic procedures performed with fine needles and catheters under the guidance of ultrasound, computed tomography or fluoroscopy. Because the operator works under imaging, the target is reached with millimetre accuracy and the result is achieved through a far smaller intervention than open surgery.</strong></p>

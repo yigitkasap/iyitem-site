@@ -7,9 +7,11 @@ cover: "/assets/dev-dental.webp"
 date: "2020-01-04"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "OP 300 — cone-beam 3D dental CT and digital panoramic X-ray."
+summary: "Kavo OP 300 — cone beam 3D dental CT and digital panoramic X-ray."
 brand: "KaVo"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Our dental CT and panoramic X-ray unit is KAVO’s three-dimensional cone beam volumetric 3D dental CT system. It produces high-quality images with a very low radiation dose; a dental CT delivers about as much radiation as a panoramic X-ray, or less than a chest X-ray.</p>
+
+<p>A panoramic X-ray shows the upper and lower jaws together with all the teeth. Panoramic and dental CT scans take less than a minute.</p>

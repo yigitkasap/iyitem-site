@@ -7,9 +7,11 @@ cover: "/assets/dev-usg.webp"
 date: "2020-01-03"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 category: ""
-summary: "Aplio i800 — colour Doppler, echocardiography and ultrasound-guided biopsy."
+summary: "Canon i800 — colour Doppler, echocardiography and a paediatric probe."
 brand: "Canon"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>A colour Doppler ultrasound system consists of the main computer, console, display and probes. With the echocardiography probe of our Canon i800, cardiac echo can be performed.</p>
+
+<p>Besides the routine probes, a dedicated paediatric probe is used for abdominal examinations of children and infants.</p>

@@ -22,12 +22,15 @@ interface Props {
 const { locale, path = '/', showTopBar = true } = Astro.props;
 const t = useTranslations(locale);
 const meta = LOCALE_META[locale];
+/** The 404 page exists only once (Turkish); its language links go to each home page. */
+const isNotFound = path === "/404/";
 
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 
 const topBarItems = [
   { icon: 'phone', label: CONTACT.phone, href: CONTACT.phoneHref },
-  { icon: 'mail', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  /* E-mail collapses to its icon on phones so the bar stays on one line. */
+  { icon: 'mail', label: CONTACT.email, href: `mailto:${CONTACT.email}`, compact: true },
   { icon: 'whatsapp', label: CONTACT.whatsapp, href: CONTACT.whatsappHref, external: true },
 ];
 
@@ -38,21 +41,22 @@ const navLink =
 {
   showTopBar && (
     <div class="bg-brand text-[13px] font-medium text-white">
-      <div class="shell flex flex-wrap items-center gap-x-6 gap-y-1.5 py-[13px]">
+      <div class="shell flex flex-nowrap items-center gap-x-4 overflow-hidden py-[11px] sm:gap-x-6 sm:py-[13px]">
         {
           topBarItems.map((item) => (
             <a
               href={item.href}
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
-              class="inline-flex items-center gap-2 whitespace-nowrap text-white hover:text-white/85"
+              aria-label={item.compact ? item.label : undefined}
+              class="inline-flex flex-none items-center gap-2 whitespace-nowrap text-white hover:text-white/85"
             >
               <Icon name={item.icon} size={15} class="shrink-0 opacity-90" />
-              <span dir="ltr">{item.label}</span>
+              <span dir="ltr" class={item.compact ? 'hidden sm:inline' : undefined}>{item.label}</span>
             </a>
           ))
         }
-        <span class="ms-auto whitespace-nowrap font-bold">{SITE.legalName}</span>
+        <span class="ms-auto hidden whitespace-nowrap font-bold md:inline">{SITE.legalName}</span>
       </div>
     </div>
   )
@@ -106,14 +110,13 @@ const navLink =
         <button
           type="button"
           id="lang-toggle"
-          aria-label={t('nav.language')}
+          aria-label={`${t('nav.language')}: ${meta.label}`}
           aria-expanded="false"
           aria-haspopup="true"
           aria-controls="lang-menu"
           class="lang-pill group/lang flex h-[38px] cursor-pointer items-center gap-1.5 rounded-full border border-line-form bg-surface pe-3 ps-[7px] text-[12.5px] font-bold text-ink"
         >
           <Flag locale={locale} />
-          <span class="hidden min-[480px]:inline">{meta.short}</span>
           <Icon name="chevronDown" size={13} strokeWidth={2.5} class="lang-caret" />
         </button>
 
@@ -126,7 +129,7 @@ const navLink =
           {
             LOCALES.map((code) => (
               <a
-                href={localePath(code, path)}
+                href={localePath(code, isNotFound ? "/" : path)}
                 hreflang={LOCALE_META[code].htmlLang}
                 lang={LOCALE_META[code].htmlLang}
                 role="menuitem"

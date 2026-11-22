@@ -7,6 +7,6 @@ cover: "/assets/blog-2.webp"
 date: "2024-08-21"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 summary: "We moved to 3 Tesla in 2022. Two years on, here is what changed in practice and where the difference is clearest."
 ---

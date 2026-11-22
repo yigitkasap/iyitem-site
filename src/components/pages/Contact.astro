@@ -4,7 +4,7 @@ import ContactForm from '../ContactForm.astro';
 import AppointmentBlock from '../AppointmentBlock.astro';
 import Icon from '../Icon.astro';
 import { CONTACT, MAPS_EMBED, MAPS_LINK, SITE, localePath, type Locale } from '@/lib/site';
-import { useTranslations } from '@/i18n/ui';
+import { useTranslations, type UIKey } from '@/i18n/ui';
 import { CONTACT_PAGE, pick } from '@/i18n/copy-pages';
 
 interface Props {
@@ -83,8 +83,8 @@ const copy = pick(CONTACT_PAGE, locale);
       {
         CONTACT.hoursRows.map((row) => (
           <div class="flex justify-between gap-4 border-b border-line-soft py-2 text-[14.5px] last:border-0">
-            <span class="text-body">{row.day}</span>
-            <span class="font-bold">{row.time}</span>
+            <span class="text-body">{t(row.day)}</span>
+            <span class="font-bold">{row.time.startsWith('hours.') ? t(row.time as UIKey) : row.time}</span>
           </div>
         ))
       }

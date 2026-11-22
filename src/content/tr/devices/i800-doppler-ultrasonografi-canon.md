@@ -9,7 +9,9 @@ order: 0
 appointmentForm: false
 draftTranslation: false
 category: ""
-summary: "Aplio i800 — renkli Doppler, ekokardiyografi ve US eşliğinde biyopsi."
+summary: "Canon i800 — renkli Doppler, ekokardiyografi ve çocuk probu."
 brand: "Canon"
 ---
-<!-- video: https://www.youtube.com/watch?v=XHOmBV4js_E -->
+<p>Renkli Doppler ultrasonografi cihazı ana bilgisayar, konsol, ekran ve problardan oluşur. Canon i800 cihazımızda ekokardiyografi probuyla kalp ekosu yapılabilmektedir.</p>
+
+<p>Rutin kullanılan probların dışında, çocuk ve bebeklerin batın incelemesine imkân veren özel çocuk probu kullanılmaktadır.</p>

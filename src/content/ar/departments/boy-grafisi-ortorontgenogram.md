@@ -7,8 +7,8 @@ cover: "/assets/svc-boy.webp"
 date: "2020-01-10"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Röntgen"
+draftTranslation: false
+category: "الأشعة السينية"
 summary: "قياس فارق طول الطرفين السفليين واصطفافهما."
 ---
 <p><strong>هو تصوير شعاعي يتيح تقييم جميع البُنى العظمية في الطرفين السفليين — من الورك إلى القدم — في صورة واحدة. ويُنتَج، كما في تصوير الجنف، بالتقاط ثلاث أو أربع صور ودمجها معًا.</strong></p>

@@ -8,7 +8,7 @@ date: "2020-10-27"
 order: 1
 appointmentForm: false
 specialty: "أخصائي الأشعة"
-draftTranslation: true
+draftTranslation: false
 education: "كلية طب جرّاح باشا، الأشعة (1996) · كلية طب إسطنبول (1992)"
 interests: "أشعة الجهاز العصبي · أشعة الجهاز الهضمي · الجهاز العضلي الهيكلي"
 ---

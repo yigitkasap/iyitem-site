@@ -7,7 +7,7 @@ cover: "/assets/blog-3.webp"
 date: "2020-09-29"
 order: 0
 appointmentForm: false
-draftTranslation: true
+draftTranslation: false
 summary: "MRI scanners are rated in tesla. What changes in image quality, scan time and the range of possible studies as field strength rises?"
 ---
 <p>MRI scanners are classified by their field strength in tesla. The first scanners were 0.02 tesla: examinations took a very long time and images looked faint. Then 0.5 and 1 tesla scanners came into use, times shortened somewhat and images became clearer. Over the past 30 years, 1.5 tesla scanners made images clearer still and shortened examinations further. New techniques such as MR spectroscopy, MR tractography, functional MRI and cardiac MRI came into use. Over the past 20 years, 3 tesla scanners have improved all of these, along with the image quality of routine MRI, and shortened examinations further. The bores patients enter have widened and patient comfort has improved. Because of the higher field strength of 3 tesla, sequences are shorter than on 1.5 tesla scanners, slice thicknesses have decreased and images are sharper. Anatomy can be assessed far more clearly. MR spectroscopy can now be performed on much smaller areas, and advances in diffusion imaging mean multiparametric prostate MRI is now performed with much better, thinner-slice images. T1 and T2 mapping and perfusion MRI can be carried out in shorter times and with thinner slices.</p>

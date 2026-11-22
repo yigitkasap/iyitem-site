@@ -7,8 +7,8 @@ cover: "/assets/svc-hsg.webp"
 date: "2020-01-08"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Kadın sağlığı"
+draftTranslation: false
+category: "Women’s health"
 summary: "A fluoroscopic examination assessing the uterus and fallopian tubes."
 ---
 <p><strong>Hysterosalpingography (HSG) is an imaging method for examining the uterus and the fallopian tubes. It is an X-ray study taken to assess the condition of the fallopian tubes — the route by which sperm and egg meet — and of the uterine cavity, where a baby will spend roughly nine months.</strong></p>

@@ -7,8 +7,8 @@ cover: "/assets/svc-liste.webp"
 date: "2020-01-14"
 order: 0
 appointmentForm: true
-draftTranslation: true
-category: "Check-up"
+draftTranslation: false
+category: "الفحص الشامل"
 summary: "قائمة محدّثة بجميع الفحوصات التي نجريها مع شروحها."
 ---
 <p>بأجهزتنا المتطورة وفريقنا ذي الخبرة نستطيع إجراء جميع الفحوصات التالية:</p>

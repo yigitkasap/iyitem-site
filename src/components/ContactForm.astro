@@ -20,7 +20,7 @@ interface Props {
   locale: Locale;
   variant?: 'appointment' | 'contact' | 'suggestion' | 'compact';
   id?: string;
-  /** Pre-selects the scan on a service detail page. */
+  /** Service slug; pre-selects the matching scan on a service detail page. */
   scan?: string;
   class?: string;
 }
@@ -37,7 +37,7 @@ const t = useTranslations(locale);
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
 const viaWhatsApp = !endpoint;
 
-const SUBJECTS = ['Randevu', 'Tetkik sonucu', 'Fiyat bilgisi', 'Öneri / şikâyet', 'Diğer'];
+const SUBJECTS = (['subject.appointment', 'subject.result', 'subject.price', 'subject.feedback', 'subject.other'] as const).map((k) => t(k));
 ---
 
 <form
@@ -131,7 +131,7 @@ const SUBJECTS = ['Randevu', 'Tetkik sonucu', 'Fiyat bilgisi', 'Öneri / şikây
         {t('form.scan')}
         <select name="scan" class="field">
           {SCAN_OPTIONS.map((o) => (
-            <option selected={scan === o}>{o}</option>
+            <option selected={!!scan && (o.slugs as readonly string[]).includes(scan)}>{t(o.key)}</option>
           ))}
         </select>
       </label>
